@@ -23,6 +23,7 @@ public class Tab1 extends Fragment {
         mWebView = (WebView) v.findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
+        settings.setSupportMultipleWindows(true);
         settings.setJavaScriptEnabled(true);
 
         settings.setDatabaseEnabled(true);
