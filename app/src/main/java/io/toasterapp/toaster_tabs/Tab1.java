@@ -1,5 +1,6 @@
 package io.toasterapp.toaster_tabs;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,12 +16,17 @@ import android.webkit.WebView;
  */
 public class Tab1 extends Fragment {
 
-    private static WebView mWebView;
+    WebView mWebView;
+    Context mContext;
 
-    @Override
+    public void setContext(Context context) {
+        this.mContext = context;
+    }
+
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.tab_1,container,false);
-        mWebView = (WebView) v.findViewById(R.id.webview);
+        View v =inflater.inflate(R.layout.tab_1, container, false);
+        this.mWebView = (WebView) v.findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
         settings.setSupportMultipleWindows(true);
@@ -47,7 +53,9 @@ public class Tab1 extends Fragment {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        mWebView.setWebViewClient(new MyCustomWebViewClient());
+        TabWebViewClient client = new TabWebViewClient();
+        client.setContext(mContext);
+        mWebView.setWebViewClient(client);
 //        mWebView.setWebChromeClient(new MyWebChromeClient());
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
