@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ColorPrimary">#ff464f</color>
+    <color name="ColorPrimaryDark">#c31c13</color>
+    <color name="tabsScrollColor">#8a140e</color>
+    <!--<item name="android:statusBarColor">#8a140e</item>-->
+
+    <!--<color name="textColorPrimary">#FFFFFF</color>-->
+    <!--<color name="windowBackground">#FFFFFF</color>-->
+    <!--<color name="navigationBarColor">#000000</color>-->
+    <!--<color name="colorAccent">#FF80AB</color>-->
+
+</resources>
