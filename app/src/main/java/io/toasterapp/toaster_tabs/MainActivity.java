@@ -1,5 +1,6 @@
 package io.toasterapp.toaster_tabs;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -107,4 +108,10 @@ public class MainActivity extends AppCompatActivity {
 //        mWebView.restoreState(savedInstanceState);
 
     }
+
+//    public void toPostShow(String url) {
+//        Intent intent = new Intent(this, PostShowActivity.class);
+//        intent.putExtra("url", url);
+//        startActivity(intent);
+//    }
 }

@@ -5,7 +5,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -56,8 +58,13 @@ public class Tab1 extends Fragment {
         TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
         mWebView.setWebViewClient(client);
-//        mWebView.setWebChromeClient(new MyWebChromeClient());
+        TabChromeClient chromeClient = new TabChromeClient();
+        chromeClient.setContext(mContext);
+        mWebView.setWebChromeClient(chromeClient);
+
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+
+//        mWebView.addJavascriptInterface(new MyJSI(mContext), "myjsi");
 
 //        mWebView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //
@@ -75,7 +82,7 @@ public class Tab1 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl("http://10.144.130.21:3000");
+            mWebView.loadUrl("http://192.168.0.103:3000");
         }
 
         return v;

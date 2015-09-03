@@ -19,14 +19,10 @@ public class TabWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-        Log.d("url", "shouldOverrideUrlLoading called");
+        Log.d("url", url);
 
-        if (url.contains("post")){
-            Log.d("url", url);
-            Intent intent = new Intent(mContext, PostShowActivity.class);
-            intent.putExtra("url", url);
-            mContext.startActivity(intent);
-        }
+//        Log.d("url", "shouldOverrideUrlLoading called");
+
 
         view.loadUrl(url);
 
@@ -34,10 +30,15 @@ public class TabWebViewClient extends WebViewClient {
     }
 
     @Override
-    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+    public void onLoadResource(WebView  view, String  url){
+//        Log.d("url", url);
+//        if( url.equals("http://cnn.com") ){
+//            // do whatever you want
+//        }
+    }
 
-        Log.d("url", "onPageStarted called");
-        Log.d("url", "url is " + url);
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
 //        if (url.contains("post")){
 //            Log.d("url", url);
@@ -52,7 +53,7 @@ public class TabWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
 
-        Log.d("url", "onPageFinished called");
+        Log.d("url", url);
         // Display the keyboard automatically when relevant
 //        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (url.contains("newPost")) {
@@ -68,6 +69,7 @@ public class TabWebViewClient extends WebViewClient {
 //            mContext.startActivity(intent);
 //
 //        }
+//        view.loadUrl("javascript:myjsi.toPostShow(window.location.href);");
         super.onPageFinished(view, url);
     }
 }

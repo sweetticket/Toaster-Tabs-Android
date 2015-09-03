@@ -22,9 +22,9 @@ public class PostShowActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.post_show);
 
         Window window = this.getWindow();
@@ -73,7 +73,7 @@ public class PostShowActivity extends AppCompatActivity {
 
         if (savedInstanceState==null) {
             String url = getIntent().getExtras().getString("url");
-            mWebView.loadUrl(url);
+            mWebView.loadUrl("http://192.168.0.103:3000" + url);
         }
 
     }
