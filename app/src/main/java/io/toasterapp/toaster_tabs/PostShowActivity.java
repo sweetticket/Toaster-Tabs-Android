@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,16 +66,18 @@ public class PostShowActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        TabWebViewClient client = new TabWebViewClient();
+        PostShowWebViewClient client = new PostShowWebViewClient();
         client.setContext(this);
         mWebView.setWebViewClient(client);
 //        mWebView.setWebChromeClient(new MyWebChromeClient());
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
-        if (savedInstanceState==null) {
-            String url = getIntent().getExtras().getString("url");
-            mWebView.loadUrl("http://192.168.0.103:3000" + url);
-        }
+//        if (savedInstanceState==null) {
+        String url = getIntent().getExtras().getString("url");
+        String postURL = "http://10.145.16.52:3000" + url;
+        Log.d("url", postURL);
+        mWebView.loadUrl(postURL);
+//        }
 
     }
 

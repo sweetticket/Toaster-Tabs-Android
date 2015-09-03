@@ -19,7 +19,7 @@ public class TabWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-        Log.d("url", url);
+//        Log.d("url", url);
 
 //        Log.d("url", "shouldOverrideUrlLoading called");
 
@@ -53,7 +53,7 @@ public class TabWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
 
-        Log.d("url", url);
+//        Log.d("url", url);
         // Display the keyboard automatically when relevant
 //        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (url.contains("newPost")) {

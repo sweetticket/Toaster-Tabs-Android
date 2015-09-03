@@ -26,7 +26,7 @@ public class TabChromeClient extends WebChromeClient {
 
         if (message.contains("/posts/")) {
 
-            Log.d("url", message);
+//            Log.d("url  ", message);
 //            Log.d("context", mContext.toString());
             Intent intent = new Intent(mContext, PostShowActivity.class);
             intent.putExtra("url", message);
@@ -34,6 +34,7 @@ public class TabChromeClient extends WebChromeClient {
 //            ((MainActivity) mContext).toPostShow(message);
 
         }
+        result.cancel();
         return true;
 
     }
