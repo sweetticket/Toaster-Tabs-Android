@@ -82,7 +82,7 @@ public class NewPostActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.1.111:3000/newPost";
+        String postURL = "http://10.148.3.89:3000/newPost";
         mWebView.loadUrl(postURL);
 //        }
 
@@ -117,7 +117,8 @@ public class NewPostActivity extends AppCompatActivity {
 
         if (id == R.id.submit) {
 
-            mWebView.loadUrl("javascript:$('form#products-new-form').submit();");
+            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
+            mToolbar.setTitle("Toast Details");
 
         }
 
