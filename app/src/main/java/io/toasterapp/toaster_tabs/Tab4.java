@@ -56,7 +56,9 @@ public class Tab4 extends Fragment {
         TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
         mWebView.setWebViewClient(client);
-//        mWebView.setWebChromeClient(new MyWebChromeClient());
+        TabChromeClient chromeClient = new TabChromeClient();
+        chromeClient.setContext(mContext);
+        mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        mWebView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -75,7 +77,7 @@ public class Tab4 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl("http://10.145.16.52:3000/profile");
+            mWebView.loadUrl("http://192.168.1.111:3000/profile");
         }
 
         return v;
