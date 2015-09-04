@@ -4,6 +4,7 @@ package io.toasterapp.toaster_tabs;
  * Created by jennykim on 9/2/15.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,7 +39,10 @@ public class MyChromeClient extends WebChromeClient {
         }
 
         if (message.contains("logout")) {
-            //TODO
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("login-required", true);
+            ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+            ((Activity) mContext).finish();
         }
 
         if (message.contains("about")) {
@@ -52,6 +56,12 @@ public class MyChromeClient extends WebChromeClient {
             Intent intent = new Intent(mContext, SettingsDetailActivity.class);
             intent.putExtra("url", "/settings/terms");
             mContext.startActivity(intent);
+        }
+
+        if (message.contains("signed-in")) {
+            Intent resultIntent = new Intent();
+            ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+            ((Activity) mContext).finish();
         }
 
         if (message.contains("share")) {

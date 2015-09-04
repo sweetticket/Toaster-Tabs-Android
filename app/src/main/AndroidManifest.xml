@@ -31,6 +31,7 @@
         <activity android:name=".NewPostActivity" ></activity>
         <activity android:name=".SettingsActivity" ></activity>
         <activity android:name=".SettingsDetailActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
 
     </application>
 

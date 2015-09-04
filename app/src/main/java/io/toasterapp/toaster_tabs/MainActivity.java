@@ -1,5 +1,6 @@
 package io.toasterapp.toaster_tabs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,8 @@ import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final int LOGIN_REQUIRED_REQUEST = 1;
+    static final int SIGNED_IN = 2;
     // Declaring Your View and Variables
 
     Toolbar mToolbar;
@@ -97,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+//            startActivity(intent);
+            startActivityForResult(intent, LOGIN_REQUIRED_REQUEST);
             return true;
         }
 
@@ -116,6 +120,32 @@ public class MainActivity extends AppCompatActivity {
         // Restore the state of the WebView
 //        mWebView.restoreState(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Check which request we're responding to
+        if (requestCode == LOGIN_REQUIRED_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                boolean loginRequired = data.getExtras().getBoolean("login-required");
+                if (loginRequired) {
+                    Intent loginIntent = new Intent(this, LoginActivity.class);
+                    startActivityForResult(loginIntent, SIGNED_IN);
+                }
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
+
+        if (requestCode == SIGNED_IN) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
     }
 
 //    public void toPostShow(String url) {

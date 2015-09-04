@@ -83,7 +83,7 @@ public class PostShowActivity extends AppCompatActivity {
 
 //        if (savedInstanceState==null) {
         String url = getIntent().getExtras().getString("url");
-        String postURL = "http://10.148.3.89:3000" + url;
+        String postURL = "http://192.168.0.103:3000" + url;
         Log.d("url", postURL);
         mWebView.loadUrl(postURL);
 //        }

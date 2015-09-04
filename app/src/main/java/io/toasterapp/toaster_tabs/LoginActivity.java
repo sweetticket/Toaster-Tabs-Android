@@ -16,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -24,7 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_right);
+        overridePendingTransition(R.animator.slide_in_left, R.animator.slide_out_left);
         setContentView(R.layout.detail);
 
         Window window = this.getWindow();
@@ -37,15 +37,8 @@ public class SettingsActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("Settings");
-        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setTitle("Sign Up");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
 
         mWebView = (WebView) findViewById(R.id.webview);
@@ -83,7 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.103:3000/settings";
+        String postURL = "http://192.168.0.103:3000/signUp";
         mWebView.loadUrl(postURL);
 //        }
 
