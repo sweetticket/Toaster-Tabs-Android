@@ -89,8 +89,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.newPost) {
-            //TODO: intent for new post activity
-            Log.d("newPost", "ready for new post");
+
+            Intent intent = new Intent(this, NewPostActivity.class);
+            startActivity(intent);
             return true;
         }
 

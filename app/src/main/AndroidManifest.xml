@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PostShowActivity" >
-        </activity>
+        <activity android:name=".PostShowActivity" ></activity>
+        <activity android:name=".NewPostActivity" ></activity>
 
     </application>
 

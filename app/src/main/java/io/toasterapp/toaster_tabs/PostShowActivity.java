@@ -26,7 +26,7 @@ public class PostShowActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
-        setContentView(R.layout.post_show);
+        setContentView(R.layout.detail);
 
         Window window = this.getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:

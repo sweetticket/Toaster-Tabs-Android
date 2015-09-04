@@ -16,7 +16,6 @@ public class PostShowWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        Log.d("postshow client", url);
         view.loadUrl(url);
 
         return true;

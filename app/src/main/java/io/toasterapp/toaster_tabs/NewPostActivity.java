@@ -26,7 +26,7 @@ public class NewPostActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
-        setContentView(R.layout.post_show);
+        setContentView(R.layout.detail);
 
         Window window = this.getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -115,9 +115,11 @@ public class NewPostActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.submit) {
+
+            mWebView.loadUrl("javascript:$('form#products-new-form').submit();");
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
