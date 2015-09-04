@@ -1,5 +1,23 @@
+<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">-->
+    <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100" android:showAsAction="never" />-->
+<!--</menu>-->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" android:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    tools:ignore="missingPrefix"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    >
+    <item
+        android:id="@+id/newPost"
+        android:orderInCategory="200"
+        android:title="New Post"
+        android:icon="@mipmap/plus"
+        app:showAsAction="always"
+        ></item>
+
 </menu>
