@@ -12,7 +12,7 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-public class TabChromeClient extends WebChromeClient {
+public class MyChromeClient extends WebChromeClient {
 
     Context mContext;
 
@@ -24,6 +24,8 @@ public class TabChromeClient extends WebChromeClient {
     @Override
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 
+        Log.d("alert", "message: " + message);
+
         if (message.contains("/posts/")) {
 
 //            Log.d("url  ", message);
@@ -34,6 +36,28 @@ public class TabChromeClient extends WebChromeClient {
 //            ((MainActivity) mContext).toPostShow(message);
 
         }
+
+        if (message.contains("logout")) {
+            //TODO
+        }
+
+        if (message.contains("about")) {
+            Log.d("alert", "is about");
+            Intent intent = new Intent(mContext, SettingsDetailActivity.class);
+            intent.putExtra("url", "/settings/about");
+            mContext.startActivity(intent);
+        }
+
+        if (message.contains("terms")) {
+            Intent intent = new Intent(mContext, SettingsDetailActivity.class);
+            intent.putExtra("url", "/settings/terms");
+            mContext.startActivity(intent);
+        }
+
+        if (message.contains("share")) {
+            //TODO
+        }
+
         result.cancel();
         return true;
 

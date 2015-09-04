@@ -5,9 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -58,7 +56,7 @@ public class Tab1 extends Fragment {
         TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
         mWebView.setWebViewClient(client);
-        TabChromeClient chromeClient = new TabChromeClient();
+        MyChromeClient chromeClient = new MyChromeClient();
         chromeClient.setContext(mContext);
         mWebView.setWebChromeClient(chromeClient);
 

@@ -25,7 +25,7 @@ public class PostShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
+        overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_right);
         setContentView(R.layout.detail);
 
         Window window = this.getWindow();

@@ -56,7 +56,7 @@ public class Tab2 extends Fragment {
         TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
         mWebView.setWebViewClient(client);
-        TabChromeClient chromeClient = new TabChromeClient();
+        MyChromeClient chromeClient = new MyChromeClient();
         chromeClient.setContext(mContext);
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);

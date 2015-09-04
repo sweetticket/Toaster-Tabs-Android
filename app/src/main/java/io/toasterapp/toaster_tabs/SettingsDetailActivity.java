@@ -16,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class NewPostActivity extends AppCompatActivity {
+public class SettingsDetailActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -37,7 +37,14 @@ public class NewPostActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("New Post");
+
+        String url = getIntent().getExtras().getString("url");
+        if (url.contains("about")) {
+            mToolbar.setTitle("About Toaster");
+        } else if (url.contains("terms")) {
+            mToolbar.setTitle(("Terms of Services"));
+        }
+
         mToolbar.setNavigationIcon(R.mipmap.back);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -81,8 +88,9 @@ public class NewPostActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://10.148.3.89:3000/newPost";
-        mWebView.loadUrl(postURL);
+
+        String settingsURL = "http://10.148.3.89:3000" + url;
+        mWebView.loadUrl(settingsURL);
 //        }
 
     }
@@ -103,7 +111,7 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_post, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -114,12 +122,9 @@ public class NewPostActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.submit) {
-
-            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
-            mToolbar.setTitle("Toast Details");
-
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

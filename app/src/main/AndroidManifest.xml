@@ -29,6 +29,8 @@
 
         <activity android:name=".PostShowActivity" ></activity>
         <activity android:name=".NewPostActivity" ></activity>
+        <activity android:name=".SettingsActivity" ></activity>
+        <activity android:name=".SettingsDetailActivity"></activity>
 
     </application>
 

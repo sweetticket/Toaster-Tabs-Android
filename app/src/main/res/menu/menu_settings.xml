@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,11 +9,12 @@
     android:layout_width="fill_parent"
     >
     <!--<item-->
-        <!--android:id="@+id/newPost"-->
-        <!--android:orderInCategory="200"-->
-        <!--android:title="New Post"-->
-        <!--android:icon="@mipmap/plus"-->
-        <!--app:showAsAction="always"-->
-        <!--></item>-->
+    <!--android:id="@+id/newPost"-->
+    <!--android:orderInCategory="200"-->
+    <!--android:title="New Post"-->
+    <!--android:icon="@mipmap/plus"-->
+    <!--app:showAsAction="always"-->
+    <!--></item>-->
 
 </menu>
+
