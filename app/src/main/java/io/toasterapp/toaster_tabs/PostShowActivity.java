@@ -38,7 +38,17 @@ public class PostShowActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mToolbar.setTitle("Toast Details");
+        mToolbar.setNavigationIcon(R.mipmap.back);
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("back", "need to go back");
+                onBackPressed();
+            }
+        });
+
 
         mWebView = (WebView) findViewById(R.id.webview);
 
@@ -108,7 +118,6 @@ public class PostShowActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
 //            return true;
 //        }
