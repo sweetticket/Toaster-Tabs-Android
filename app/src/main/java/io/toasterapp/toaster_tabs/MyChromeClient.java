@@ -9,19 +9,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class MyChromeClient extends WebChromeClient {
 
     Context mContext;
+    ProgressBar mProgressBar;
+
 
     public void setContext(Context context) {
         this.mContext = context;
 //        Log.d("context", mContext.toString());
-
     }
+
+    public void setProgressBar(ProgressBar progressBar) {
+        this.mProgressBar = progressBar;
+    }
+
     @Override
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 
@@ -83,6 +92,17 @@ public class MyChromeClient extends WebChromeClient {
         result.cancel();
         return true;
 
+    }
+
+    public void onProgressChanged(WebView view, int progress)
+    {
+        if(progress < 100 && mProgressBar.getVisibility() == ProgressBar.GONE){
+            mProgressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+        mProgressBar.setProgress(progress);
+        if(progress == 100) {
+            mProgressBar.setVisibility(ProgressBar.GONE);
+        }
     }
 
 }

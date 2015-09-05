@@ -7,12 +7,5 @@
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
     >
-    <!--<item-->
-        <!--android:id="@+id/newPost"-->
-        <!--android:orderInCategory="200"-->
-        <!--android:title="New Post"-->
-        <!--android:icon="@mipmap/plus"-->
-        <!--app:showAsAction="always"-->
-        <!--></item>-->
 
 </menu>
