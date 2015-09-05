@@ -30,18 +30,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             Tab1 tab1 = new Tab1();
             tab1.setContext(mContext);
             return tab1;
-        } else if (position == 1) {
+        } else {
             Tab2 tab2 = new Tab2();
             tab2.setContext(mContext);
             return tab2;
-        } else if (position == 2) {
-            Tab3 tab3 = new Tab3();
-            tab3.setContext(mContext);
-            return tab3;
-        } else {
-            Tab4 tab4 = new Tab4();
-            tab4.setContext(mContext);
-            return tab4;
         }
 
 

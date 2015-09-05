@@ -8,6 +8,20 @@
     android:layout_width="fill_parent"
     >
     <item
+        android:id="@+id/profile"
+        android:orderInCategory="100"
+        android:title="Settings"
+        android:icon="@mipmap/user"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/notice"
+        android:orderInCategory="100"
+        android:title="Settings"
+        android:icon="@mipmap/bell"
+        app:showAsAction="always"
+        ></item>
+    <item
         android:id="@+id/settings"
         android:orderInCategory="100"
         android:title="Settings"
@@ -18,7 +32,7 @@
         android:id="@+id/newPost"
         android:orderInCategory="200"
         android:title="New Post"
-        android:icon="@mipmap/plus"
+        android:icon="@mipmap/create"
         app:showAsAction="always"
         ></item>
 

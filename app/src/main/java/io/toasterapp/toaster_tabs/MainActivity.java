@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"New","Hot","Notice","Me"};
-    int Numboftabs = 4;
+    CharSequence Titles[]={"New","Hot"};
+    int Numboftabs = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivityForResult(intent, LOGIN_REQUIRED_REQUEST);
+            return true;
+        }
+
+        if (id == R.id.profile) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.notice) {
+            Intent intent = new Intent(this, NotificationsActivity.class);
+            startActivity(intent);
             return true;
         }
 
