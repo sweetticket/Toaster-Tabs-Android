@@ -11,28 +11,28 @@
         android:id="@+id/profile"
         android:orderInCategory="100"
         android:title="Settings"
-        android:icon="@mipmap/user"
+        android:icon="@mipmap/user_ios"
         app:showAsAction="always"
         ></item>
     <item
         android:id="@+id/notice"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="Settings"
-        android:icon="@mipmap/bell"
+        android:icon="@mipmap/megaphone"
         app:showAsAction="always"
         ></item>
     <item
         android:id="@+id/settings"
-        android:orderInCategory="100"
+        android:orderInCategory="300"
         android:title="Settings"
-        android:icon="@mipmap/settings"
+        android:icon="@mipmap/settings_ios"
         app:showAsAction="always"
         ></item>
     <item
         android:id="@+id/newPost"
-        android:orderInCategory="200"
+        android:orderInCategory="400"
         android:title="New Post"
-        android:icon="@mipmap/create"
+        android:icon="@mipmap/create_ios"
         app:showAsAction="always"
         ></item>
 

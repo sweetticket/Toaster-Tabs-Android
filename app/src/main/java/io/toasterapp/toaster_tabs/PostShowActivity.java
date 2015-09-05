@@ -40,8 +40,8 @@ public class PostShowActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("Toast Details");
-        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setTitle("TOAST DETAILS");
+        mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

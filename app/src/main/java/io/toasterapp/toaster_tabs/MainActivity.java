@@ -3,15 +3,22 @@ package io.toasterapp.toaster_tabs;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
         // Creating The Toolbar and setting it as the Toolbar for the activity
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mToolbar);
 
+        SpannableString s = new SpannableString("toaster");
+        s.setSpan(new CustomTypefaceSpan(this, "Oduda.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mToolbar.setTitle(s);
+
+        setSupportActionBar(mToolbar);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs, this);
@@ -162,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivityForResult(loginIntent, SIGNED_IN);
     }
+
 
 //    public void toPostShow(String url) {
 //        Intent intent = new Intent(this, PostShowActivity.class);

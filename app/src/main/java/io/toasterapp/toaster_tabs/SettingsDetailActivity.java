@@ -42,12 +42,12 @@ public class SettingsDetailActivity extends AppCompatActivity {
 
         String url = getIntent().getExtras().getString("url");
         if (url.contains("about")) {
-            mToolbar.setTitle("About Toaster");
+            mToolbar.setTitle("ABOUT TOASTER");
         } else if (url.contains("terms")) {
-            mToolbar.setTitle(("Terms of Services"));
+            mToolbar.setTitle(("TERMS OF SERVICES"));
         }
 
-        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

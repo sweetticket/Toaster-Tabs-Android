@@ -12,7 +12,7 @@
         android:id="@+id/submit"
         android:orderInCategory="200"
         android:title="Submit"
-        android:icon="@mipmap/done"
+        android:icon="@mipmap/done_ios"
         app:showAsAction="always"
         ></item>
 

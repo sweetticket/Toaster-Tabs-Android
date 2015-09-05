@@ -38,8 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("My Profile");
-        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setTitle("MY PROFILE");
+        mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

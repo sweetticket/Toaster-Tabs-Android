@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("Sign Up");
+        mToolbar.setTitle("SIGN UP");
         setSupportActionBar(mToolbar);
 
 
@@ -87,12 +87,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void toSignUp() {
         mWebView.loadUrl("http://192.168.0.106:3000/signUp");
-        mToolbar.setTitle("Sign Up");
+        mToolbar.setTitle("SIGN UP");
     }
 
     public void toSignIn() {
         mWebView.loadUrl("http://192.168.0.106:3000/signIn");
-        mToolbar.setTitle("Sign In");
+        mToolbar.setTitle("SIGN IN");
     }
 
     @Override

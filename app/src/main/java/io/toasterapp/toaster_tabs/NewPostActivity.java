@@ -39,8 +39,8 @@ public class NewPostActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("New Post");
-        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setTitle("NEW TOAST");
+        mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

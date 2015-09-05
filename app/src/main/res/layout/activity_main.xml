@@ -19,7 +19,7 @@ android:layout_height="match_parent">
 
         <include
             android:id="@+id/tool_bar"
-            layout="@layout/tool_bar"
+            layout="@layout/tool_bar_main"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             />
