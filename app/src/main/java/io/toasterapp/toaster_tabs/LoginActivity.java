@@ -76,10 +76,20 @@ public class LoginActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.103:3000/signUp";
+        String postURL = "http://192.168.0.106:3000/signUp";
         mWebView.loadUrl(postURL);
 //        }
 
+    }
+
+    public void toSignUp() {
+        mWebView.loadUrl("http://192.168.0.106:3000/signUp");
+        mToolbar.setTitle("Sign Up");
+    }
+
+    public void toSignIn() {
+        mWebView.loadUrl("http://192.168.0.106:3000/signIn");
+        mToolbar.setTitle("Sign In");
     }
 
     @Override

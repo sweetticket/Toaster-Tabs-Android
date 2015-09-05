@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-//            startActivity(intent);
             startActivityForResult(intent, LOGIN_REQUIRED_REQUEST);
             return true;
         }
@@ -131,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 boolean loginRequired = data.getExtras().getBoolean("login-required");
                 if (loginRequired) {
-                    Intent loginIntent = new Intent(this, LoginActivity.class);
-                    startActivityForResult(loginIntent, SIGNED_IN);
+                    toSignUp();
                 }
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
@@ -146,6 +144,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
             startActivity(intent);
         }
+    }
+
+    public void toSignUp() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivityForResult(loginIntent, SIGNED_IN);
     }
 
 //    public void toPostShow(String url) {

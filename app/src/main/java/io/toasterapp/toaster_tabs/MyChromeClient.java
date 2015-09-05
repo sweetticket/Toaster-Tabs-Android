@@ -64,6 +64,18 @@ public class MyChromeClient extends WebChromeClient {
             ((Activity) mContext).finish();
         }
 
+        if (message.contains("toSignUp")) {
+            ((LoginActivity) mContext).toSignUp();
+        }
+
+        if (message.contains("toSignIn")) {
+            ((LoginActivity) mContext).toSignIn();
+        }
+
+        if (message.contains("start-signup")) {
+            ((MainActivity) mContext).toSignUp();
+        }
+
         if (message.contains("share")) {
             //TODO
         }
