@@ -30,7 +30,6 @@ public class PostShowWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         // Display the keyboard automatically when relevant
-
         super.onPageFinished(view, url);
     }
 }
