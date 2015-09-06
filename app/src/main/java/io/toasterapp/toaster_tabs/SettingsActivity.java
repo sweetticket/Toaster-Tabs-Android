@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * Created by jennykim on 9/2/15.
@@ -76,17 +75,19 @@ public class SettingsActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        PostShowWebViewClient client = new PostShowWebViewClient();
+        DetailWebViewClient client = new DetailWebViewClient();
         client.setContext(this);
+        client.setWheel(findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
         MyChromeClient chromeClient = new MyChromeClient();
         chromeClient.setContext(this);
-        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
+        chromeClient.setWheel(findViewById(R.id.progress_wheel));
+//        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://104.131.158.80:3000/settings";
+        String postURL = "http://192.168.0.104:3000/settings";
         mWebView.loadUrl(postURL);
 //        }
 

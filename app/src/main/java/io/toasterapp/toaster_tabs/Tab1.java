@@ -1,5 +1,6 @@
 package io.toasterapp.toaster_tabs;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -57,10 +59,12 @@ public class Tab1 extends Fragment {
         }
         TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
+        client.setWheel(v.findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
         MyChromeClient chromeClient = new MyChromeClient();
         chromeClient.setContext(mContext);
-        chromeClient.setProgressBar((ProgressBar) v.findViewById(R.id.pB1));
+        chromeClient.setWheel(v.findViewById(R.id.progress_wheel));
+//        chromeClient.setProgressBar((ProgressBar) v.findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
 
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
@@ -83,7 +87,7 @@ public class Tab1 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl("http://104.131.158.80:3000");
+            mWebView.loadUrl("http://192.168.0.104:3000");
         }
 
         return v;

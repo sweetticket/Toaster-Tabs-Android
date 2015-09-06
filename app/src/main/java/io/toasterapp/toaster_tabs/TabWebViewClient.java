@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -11,10 +12,13 @@ import android.webkit.WebViewClient;
 public class TabWebViewClient extends WebViewClient {
 
     Context mContext;
+    View mWheel;
 
     public void setContext(Context context) {
         this.mContext = context;
     }
+
+    public void setWheel(View wheel) { this.mWheel = wheel; }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -70,6 +74,7 @@ public class TabWebViewClient extends WebViewClient {
 //
 //        }
 //        view.loadUrl("javascript:myjsi.toPostShow(window.location.href);");
+//        mWheel.setVisibility(View.GONE);
         ((MainActivity) mContext).checkIfLoaded();
 
         super.onPageFinished(view, url);

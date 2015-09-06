@@ -32,7 +32,7 @@
             android:windowSoftInputMode="stateVisible"></activity>
         <activity android:name=".SettingsActivity" ></activity>
         <activity android:name=".SettingsDetailActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".NotificationsActivity"></activity>
 

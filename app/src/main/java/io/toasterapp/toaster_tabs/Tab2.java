@@ -57,10 +57,12 @@ public class Tab2 extends Fragment {
         }
         TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
+        client.setWheel(v.findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
         MyChromeClient chromeClient = new MyChromeClient();
         chromeClient.setContext(mContext);
-        chromeClient.setProgressBar((ProgressBar) v.findViewById(R.id.pB1));
+        chromeClient.setWheel(v.findViewById(R.id.progress_wheel));
+//        chromeClient.setProgressBar((ProgressBar) v.findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
@@ -80,7 +82,7 @@ public class Tab2 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl("http://104.131.158.80:3000/trending");
+            mWebView.loadUrl("http://192.168.0.104:3000/trending");
         }
 
         return v;

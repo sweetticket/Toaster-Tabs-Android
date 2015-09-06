@@ -12,13 +12,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * Created by jennykim on 9/2/15.
  */
-public class LoginActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -69,31 +67,34 @@ public class LoginActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        PostShowWebViewClient client = new PostShowWebViewClient();
+        DetailWebViewClient client = new DetailWebViewClient();
         client.setContext(this);
+        client.setWheel(findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
         MyChromeClient chromeClient = new MyChromeClient();
         chromeClient.setContext(this);
-        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
+        chromeClient.setWheel(findViewById(R.id.progress_wheel));
+//        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
+
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://104.131.158.80:3000/signUp";
+        String postURL = "http://192.168.0.104:3000/signIn";
         mWebView.loadUrl(postURL);
 //        }
 
     }
-
-    public void toSignUp() {
-        mWebView.loadUrl("http://104.131.158.80:3000/signUp");
-        mToolbar.setTitle("SIGN UP");
-    }
-
-    public void toSignIn() {
-        mWebView.loadUrl("http://104.131.158.80:3000/signIn");
-        mToolbar.setTitle("SIGN IN");
-    }
+//
+//    public void toSignUp() {
+//        mWebView.loadUrl("http://192.168.0.104:3000/signUp");
+//        mToolbar.setTitle("SIGN UP");
+//    }
+//
+//    public void toSignIn() {
+//        mWebView.loadUrl("http://192.168.0.104:3000/signIn");
+//        mToolbar.setTitle("SIGN IN");
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -131,6 +132,10 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onBackPressed();
 
+    }
+
+    public WebView getWebView() {
+        return mWebView;
     }
 
 }

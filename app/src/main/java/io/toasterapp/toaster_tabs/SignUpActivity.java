@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class ProfileActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -25,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_right);
+        overridePendingTransition(R.animator.slide_in_left, R.animator.slide_out_left);
         setContentView(R.layout.detail);
 
         Window window = this.getWindow();
@@ -38,15 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("MY PROFILE");
-        mToolbar.setNavigationIcon(R.mipmap.back_ios);
+        mToolbar.setTitle("SIGN UP");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
 
         mWebView = (WebView) findViewById(R.id.webview);
@@ -83,14 +76,25 @@ public class ProfileActivity extends AppCompatActivity {
         chromeClient.setContext(this);
         chromeClient.setWheel(findViewById(R.id.progress_wheel));
 //        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
+
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.104:3000/profile";
+        String postURL = "http://192.168.0.104:3000/signUp";
         mWebView.loadUrl(postURL);
 //        }
 
+    }
+
+    public void toSignUp() {
+        mWebView.loadUrl("http://192.168.0.104:3000/signUp");
+        mToolbar.setTitle("SIGN UP");
+    }
+
+    public void toSignIn() {
+        mWebView.loadUrl("http://192.168.0.104:3000/signIn");
+        mToolbar.setTitle("SIGN IN");
     }
 
     @Override
@@ -109,7 +113,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_blank, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -118,14 +122,8 @@ public class ProfileActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        if (id == R.id.submit) {
-
-            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
-            finish();
-
-        }
+//        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
@@ -135,6 +133,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         super.onBackPressed();
 
+    }
+
+    public WebView getWebView() {
+        return mWebView;
     }
 
 }

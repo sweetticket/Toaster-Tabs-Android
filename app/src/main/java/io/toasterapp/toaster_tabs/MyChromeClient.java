@@ -7,19 +7,17 @@ package io.toasterapp.toaster_tabs;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 public class MyChromeClient extends WebChromeClient {
 
     Context mContext;
-    ProgressBar mProgressBar;
+//    ProgressBar mProgressBar;
+    View mWheel;
     static boolean isSigningIn = false;
 
 
@@ -28,8 +26,12 @@ public class MyChromeClient extends WebChromeClient {
 //        Log.d("context", mContext.toString());
     }
 
-    public void setProgressBar(ProgressBar progressBar) {
-        this.mProgressBar = progressBar;
+//    public void setProgressBar(ProgressBar progressBar) {
+//        this.mProgressBar = progressBar;
+//    }
+
+    public void setWheel(View wheel) {
+        this.mWheel = wheel;
     }
 
     @Override
@@ -78,11 +80,13 @@ public class MyChromeClient extends WebChromeClient {
         }
 
         if (message.contains("toSignUp")) {
-            ((LoginActivity) mContext).toSignUp();
+//            mWheel.setVisibility(View.VISIBLE);
+            ((SignUpActivity) mContext).toSignUp();
         }
 
         if (message.contains("toSignIn")) {
-            ((LoginActivity) mContext).toSignIn();
+//            mWheel.setVisibility(View.VISIBLE);
+            ((SignUpActivity) mContext).toSignIn();
         }
 
         if (message.contains("start-signup")) {
@@ -90,6 +94,10 @@ public class MyChromeClient extends WebChromeClient {
                 isSigningIn = true;
                 ((MainActivity) mContext).toSignUp();
             }
+        }
+
+        if (message.contains("loadingEnd")) {
+            mWheel.setVisibility(View.GONE);
         }
 
         if (message.contains("share")) {
@@ -101,15 +109,15 @@ public class MyChromeClient extends WebChromeClient {
 
     }
 
-    public void onProgressChanged(WebView view, int progress)
-    {
-        if(progress < 100 && mProgressBar.getVisibility() == ProgressBar.GONE){
-            mProgressBar.setVisibility(ProgressBar.VISIBLE);
-        }
-        mProgressBar.setProgress(progress);
-        if(progress == 100) {
-            mProgressBar.setVisibility(ProgressBar.GONE);
-        }
-    }
+//    public void onProgressChanged(WebView view, int progress)
+//    {
+//        if(progress < 100 && mProgressBar.getVisibility() == ProgressBar.GONE){
+//            mProgressBar.setVisibility(ProgressBar.VISIBLE);
+//        }
+//        mProgressBar.setProgress(progress);
+//        if(progress == 100) {
+//            mProgressBar.setVisibility(ProgressBar.GONE);
+//        }
+//    }
 
 }

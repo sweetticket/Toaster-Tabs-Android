@@ -1,25 +1,18 @@
 package io.toasterapp.toaster_tabs;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
-
-import java.lang.reflect.Field;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -180,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toSignUp() {
-        Intent loginIntent = new Intent(this, LoginActivity.class);
+        Intent loginIntent = new Intent(this, SignUpActivity.class);
         startActivityForResult(loginIntent, SIGNED_IN);
     }
 
