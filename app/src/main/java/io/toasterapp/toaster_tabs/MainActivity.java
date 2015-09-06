@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     static final int LOGIN_REQUIRED_REQUEST = 1;
     static final int SIGNED_IN = 2;
+    static final int RESTART = 3;
     // Declaring Your View and Variables
 
     Toolbar mToolbar;
@@ -164,16 +165,20 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SIGNED_IN) {
             Intent intent = getIntent();
             finish();
-            startActivity(intent);
-//            firstLoadComplete = true;
-//            oneTabLoadComplete = true;
-//            int statusbar_color = Color.rgb(255, 70, 79);
-//            this.getWindow().setStatusBarColor(statusbar_color);
+            startActivityForResult(intent, RESTART);
+        }
+
+        if (requestCode == RESTART) {
+            findViewById(R.id.splash_screen).setVisibility(View.GONE);
+            int statusbar_color = Color.rgb(255, 70, 79);
+            this.getWindow().setStatusBarColor(statusbar_color);
+            firstLoadComplete = true;
+            oneTabLoadComplete = true;
         }
     }
 
     public void toSignUp() {
-        Intent loginIntent = new Intent(this, SignUpActivity.class);
+        Intent loginIntent = new Intent(this, SignUpTabActivity.class);
         startActivityForResult(loginIntent, SIGNED_IN);
     }
 
