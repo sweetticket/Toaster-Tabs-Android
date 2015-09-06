@@ -14,6 +14,7 @@ import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -33,9 +34,14 @@ public class MainActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     CharSequence Titles[]={"New","Hot"};
     int Numboftabs = 2;
+    boolean firstLoadComplete;
+    boolean oneTabLoadComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        firstLoadComplete = false;
+        oneTabLoadComplete = false;
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -47,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        int statusbar_color = Color.rgb(255, 70, 79);
-        window.setStatusBarColor(statusbar_color);
+        int statusbar_splash_color = Color.rgb(255, 94, 58);
+        window.setStatusBarColor(statusbar_splash_color);
 
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
@@ -172,6 +178,25 @@ public class MainActivity extends AppCompatActivity {
     public void toSignUp() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivityForResult(loginIntent, SIGNED_IN);
+    }
+
+    public boolean checkIfLoaded() {
+        if (firstLoadComplete) {
+            Log.d("checkIfLoaded", "already loaded");
+            return true;
+        } else if (oneTabLoadComplete) {
+            Log.d("checkIfLoaded", "both tabs loaded");
+            firstLoadComplete = true;
+            //Hide Image
+            findViewById(R.id.splash_screen).setVisibility(View.GONE);
+            int statusbar_color = Color.rgb(255, 70, 79);
+            this.getWindow().setStatusBarColor(statusbar_color);
+            return true;
+        } else {
+            Log.d("checkIfLoaded", "only one tab loaded");
+            oneTabLoadComplete = true;
+            return false;
+        }
     }
 
 

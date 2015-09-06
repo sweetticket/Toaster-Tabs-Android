@@ -9,6 +9,7 @@
     android:src="@drawable/egg_splash_android_hdpi"
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:scaleType="fitCenter"/>
+    android:scaleType="centerCrop"
+    android:adjustViewBounds="true"/>
 
 <!--</LinearLayout>-->

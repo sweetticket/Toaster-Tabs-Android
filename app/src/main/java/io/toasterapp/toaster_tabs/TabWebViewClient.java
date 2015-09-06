@@ -70,7 +70,7 @@ public class TabWebViewClient extends WebViewClient {
 //
 //        }
 //        view.loadUrl("javascript:myjsi.toPostShow(window.location.href);");
-
+        ((MainActivity) mContext).checkIfLoaded();
 
         super.onPageFinished(view, url);
     }
