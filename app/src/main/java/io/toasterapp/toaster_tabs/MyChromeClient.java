@@ -20,6 +20,7 @@ public class MyChromeClient extends WebChromeClient {
 
     Context mContext;
     ProgressBar mProgressBar;
+    static boolean isSigningIn = false;
 
 
     public void setContext(Context context) {
@@ -48,14 +49,16 @@ public class MyChromeClient extends WebChromeClient {
         }
 
         if (message.contains("logout")) {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("login-required", true);
-            ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
-            ((Activity) mContext).finish();
+            if (!isSigningIn) {
+                isSigningIn = true;
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("login-required", true);
+                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+                ((Activity) mContext).finish();
+            }
         }
 
         if (message.contains("about")) {
-            Log.d("alert", "is about");
             Intent intent = new Intent(mContext, SettingsDetailActivity.class);
             intent.putExtra("url", "/settings/about");
             mContext.startActivity(intent);
@@ -71,6 +74,7 @@ public class MyChromeClient extends WebChromeClient {
             Intent resultIntent = new Intent();
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
+            isSigningIn = false;
         }
 
         if (message.contains("toSignUp")) {
@@ -82,7 +86,10 @@ public class MyChromeClient extends WebChromeClient {
         }
 
         if (message.contains("start-signup")) {
-            ((MainActivity) mContext).toSignUp();
+            if (!isSigningIn) {
+                isSigningIn = true;
+                ((MainActivity) mContext).toSignUp();
+            }
         }
 
         if (message.contains("share")) {

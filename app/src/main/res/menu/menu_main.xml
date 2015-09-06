@@ -10,14 +10,14 @@
     <item
         android:id="@+id/profile"
         android:orderInCategory="100"
-        android:title="Settings"
+        android:title="My Profile"
         android:icon="@mipmap/user_ios"
         app:showAsAction="always"
         ></item>
     <item
         android:id="@+id/notice"
         android:orderInCategory="200"
-        android:title="Settings"
+        android:title="Notifications"
         android:icon="@mipmap/megaphone"
         app:showAsAction="always"
         ></item>

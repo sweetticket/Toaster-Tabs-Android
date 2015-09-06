@@ -94,7 +94,7 @@ public class SettingsDetailActivity extends AppCompatActivity {
 
 //        if (savedInstanceState==null) {
 
-        String settingsURL = "http://192.168.0.106:3000" + url;
+        String settingsURL = "http://104.131.158.80:3000" + url;
         mWebView.loadUrl(settingsURL);
 //        }
 

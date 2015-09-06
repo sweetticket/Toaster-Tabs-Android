@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     CharSequence Titles[]={"New","Hot"};
     int Numboftabs = 2;
-    boolean firstLoadComplete;
-    boolean oneTabLoadComplete;
+    static boolean firstLoadComplete;
+    static boolean oneTabLoadComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
-        pager.setOffscreenPageLimit(3);
+        pager.setOffscreenPageLimit(1);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -172,6 +172,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = getIntent();
             finish();
             startActivity(intent);
+//            firstLoadComplete = true;
+//            oneTabLoadComplete = true;
+//            int statusbar_color = Color.rgb(255, 70, 79);
+//            this.getWindow().setStatusBarColor(statusbar_color);
         }
     }
 
@@ -182,10 +186,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean checkIfLoaded() {
         if (firstLoadComplete) {
-            Log.d("checkIfLoaded", "already loaded");
+//            Log.d("checkIfLoaded", "already loaded");
             return true;
         } else if (oneTabLoadComplete) {
-            Log.d("checkIfLoaded", "both tabs loaded");
+//            Log.d("checkIfLoaded", "both tabs loaded");
             firstLoadComplete = true;
             //Hide Image
             findViewById(R.id.splash_screen).setVisibility(View.GONE);
@@ -193,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(statusbar_color);
             return true;
         } else {
-            Log.d("checkIfLoaded", "only one tab loaded");
+//            Log.d("checkIfLoaded", "only one tab loaded");
             oneTabLoadComplete = true;
             return false;
         }
