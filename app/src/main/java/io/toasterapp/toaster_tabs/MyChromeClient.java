@@ -79,15 +79,15 @@ public class MyChromeClient extends WebChromeClient {
             isSigningIn = false;
         }
 
-        if (message.contains("toSignUp")) {
-//            mWheel.setVisibility(View.VISIBLE);
-            ((SignUpActivity) mContext).toSignUp();
-        }
-
-        if (message.contains("toSignIn")) {
-//            mWheel.setVisibility(View.VISIBLE);
-            ((SignUpActivity) mContext).toSignIn();
-        }
+//        if (message.contains("toSignUp")) {
+////            mWheel.setVisibility(View.VISIBLE);
+//            ((SignUpActivity) mContext).toSignUp();
+//        }
+//
+//        if (message.contains("toSignIn")) {
+////            mWheel.setVisibility(View.VISIBLE);
+//            ((SignUpActivity) mContext).toSignIn();
+//        }
 
         if (message.contains("start-signup")) {
             if (!isSigningIn) {

@@ -1,5 +1,6 @@
 package io.toasterapp.toaster_tabs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 
 public class SignUpTabActivity extends AppCompatActivity {
 
     static final int LOGIN_REQUIRED_REQUEST = 1;
     static final int SIGNED_IN = 2;
+//    public static InputMethodManager imm;
     // Declaring Your View and Variables
 
     Toolbar mToolbar;
@@ -75,8 +78,18 @@ public class SignUpTabActivity extends AppCompatActivity {
             }
         });
 
+//        imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 1);
+
+//        tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 1);
+//            }
+//        });
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+
 
 
     }

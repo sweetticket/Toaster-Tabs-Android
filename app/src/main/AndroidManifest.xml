@@ -35,7 +35,8 @@
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".NotificationsActivity"></activity>
-        <activity android:name=".SignUpTabActivity"></activity>
+        <activity android:name=".SignUpTabActivity"
+            android:windowSoftInputMode="stateVisible"></activity>
 
     </application>
 
