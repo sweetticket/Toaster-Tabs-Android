@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
 
 /**
  * Created by jennykim on 9/2/15.
@@ -95,7 +94,7 @@ public class SettingsDetailActivity extends AppCompatActivity {
 
 //        if (savedInstanceState==null) {
 
-        String settingsURL = GlobalConstants.mRootURL + url;
+        String settingsURL = GlobalVariables.ROOT_URL + url;
         mWebView.loadUrl(settingsURL);
 //        }
 

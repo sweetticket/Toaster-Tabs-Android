@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
 
 /**
  * Created by jennykim on 9/2/15.
@@ -89,7 +88,7 @@ public class PostShowActivity extends AppCompatActivity {
 
 //        if (savedInstanceState==null) {
         String url = getIntent().getExtras().getString("url");
-        String postURL = GlobalConstants.mRootURL + url;
+        String postURL = GlobalVariables.ROOT_URL + url;
         Log.d("url", postURL);
         mWebView.loadUrl(postURL);
 //        }

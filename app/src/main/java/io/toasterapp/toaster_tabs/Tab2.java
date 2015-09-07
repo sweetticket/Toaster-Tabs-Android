@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * Created by hp1 on 21-01-2015.
@@ -82,7 +80,7 @@ public class Tab2 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl(GlobalConstants.mRootURL + "/trending");
+            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/trending");
         }
 
         return v;

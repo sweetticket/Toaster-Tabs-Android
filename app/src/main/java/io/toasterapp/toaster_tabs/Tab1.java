@@ -1,6 +1,5 @@
 package io.toasterapp.toaster_tabs;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,11 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * Created by hp1 on 21-01-2015.
@@ -87,7 +83,7 @@ public class Tab1 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl(GlobalConstants.mRootURL);
+            mWebView.loadUrl(GlobalVariables.ROOT_URL);
         }
 
         return v;

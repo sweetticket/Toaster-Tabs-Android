@@ -83,7 +83,7 @@ public class SignUpTab extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl(GlobalConstants.mRootURL + "/signUp");
+            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/signUp");
         }
 
         return v;

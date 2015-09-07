@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
 
 /**
  * Created by jennykim on 9/2/15.
@@ -87,7 +86,7 @@ public class NewPostActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = GlobalConstants.mRootURL + "/newPost";
+        String postURL = GlobalVariables.ROOT_URL + "/newPost";
         mWebView.loadUrl(postURL);
 //        }
 

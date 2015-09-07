@@ -1,6 +1,7 @@
 package io.toasterapp.toaster_tabs;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -8,11 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.pusher.client.Pusher;
+import com.pusher.client.channel.PrivateChannel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     int Numboftabs = 2;
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
+
+    private PrivateChannel mChannel;
+    private Pusher mPusher;
+    private String mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
         int statusbar_splash_color = Color.rgb(255, 94, 58);
         window.setStatusBarColor(statusbar_splash_color);
 
+        SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
+        if (prefs.getString("userId", "").toString() != null) {
+            mUserId = prefs.getString("userId", "").toString();
+            Log.d("mUserId", mUserId);
+        }
+
         if (getIntent().hasExtra("restart")) {
             if (getIntent().getBooleanExtra("restart", true)) {
                 findViewById(R.id.splash_screen).setVisibility(View.GONE);
@@ -60,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 this.getWindow().setStatusBarColor(statusbar_splash_color);
                 firstLoadComplete = true;
                 oneTabLoadComplete = true;
+
             } else {
                 findViewById(R.id.splash_screen).setVisibility(View.VISIBLE);
             }
@@ -168,6 +184,11 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 boolean loginRequired = data.getExtras().getBoolean("login-required");
                 if (loginRequired) {
+//                    mPusher.disconnect();
+                    SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("userId");
+                    editor.apply();
                     toSignUp();
                 }
                 // The user picked a contact.
@@ -178,10 +199,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (requestCode == SIGNED_IN) {
+
+            String userId = data.getStringExtra("userId");
+            SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("userId", userId);
+            editor.apply();
+
             Intent intent = getIntent();
 //            finish();
 //            startActivityForResult(intent, RESTART);
             intent.putExtra("restart", true);
+
             finish();
             startActivity(intent);
         }

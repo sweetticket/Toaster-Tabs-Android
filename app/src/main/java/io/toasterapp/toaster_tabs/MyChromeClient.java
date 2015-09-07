@@ -7,6 +7,7 @@ package io.toasterapp.toaster_tabs;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
@@ -73,7 +74,9 @@ public class MyChromeClient extends WebChromeClient {
         }
 
         if (message.contains("signed-in")) {
+            String userId = message.substring(message.lastIndexOf(":") + 1);
             Intent resultIntent = new Intent();
+            resultIntent.putExtra("userId", userId);
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
             isSigningIn = false;
