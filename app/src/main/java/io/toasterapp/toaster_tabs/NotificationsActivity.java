@@ -87,7 +87,7 @@ public class NotificationsActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.104:3000/notifications";
+        String postURL = GlobalConstants.mRootURL + "/notifications";
         mWebView.loadUrl(postURL);
 //        }
 

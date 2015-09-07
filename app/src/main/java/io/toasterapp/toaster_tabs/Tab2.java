@@ -82,7 +82,7 @@ public class Tab2 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl("http://192.168.0.104:3000/trending");
+            mWebView.loadUrl(GlobalConstants.mRootURL + "/trending");
         }
 
         return v;

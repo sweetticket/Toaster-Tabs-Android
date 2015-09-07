@@ -87,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.104:3000/settings";
+        String postURL = GlobalConstants.mRootURL + "/settings";
         mWebView.loadUrl(postURL);
 //        }
 

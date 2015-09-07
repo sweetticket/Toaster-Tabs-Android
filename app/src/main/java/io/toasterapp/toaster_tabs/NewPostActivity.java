@@ -87,7 +87,7 @@ public class NewPostActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.104:3000/newPost";
+        String postURL = GlobalConstants.mRootURL + "/newPost";
         mWebView.loadUrl(postURL);
 //        }
 

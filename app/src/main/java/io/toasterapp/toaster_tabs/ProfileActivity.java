@@ -87,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = "http://192.168.0.104:3000/profile";
+        String postURL = GlobalConstants.mRootURL + "/profile";
         mWebView.loadUrl(postURL);
 //        }
 
