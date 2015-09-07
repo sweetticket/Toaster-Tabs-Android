@@ -47,8 +47,23 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        int statusbar_splash_color = Color.rgb(255, 94, 58);
+//        window.setStatusBarColor(statusbar_splash_color);
+
         int statusbar_splash_color = Color.rgb(255, 94, 58);
         window.setStatusBarColor(statusbar_splash_color);
+
+        if (getIntent().hasExtra("restart")) {
+            if (getIntent().getBooleanExtra("restart", true)) {
+                findViewById(R.id.splash_screen).setVisibility(View.GONE);
+                statusbar_splash_color = Color.rgb(255, 70, 79);
+                this.getWindow().setStatusBarColor(statusbar_splash_color);
+                firstLoadComplete = true;
+                oneTabLoadComplete = true;
+            } else {
+                findViewById(R.id.splash_screen).setVisibility(View.VISIBLE);
+            }
+        }
 
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
@@ -164,8 +179,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == SIGNED_IN) {
             Intent intent = getIntent();
+//            finish();
+//            startActivityForResult(intent, RESTART);
+            intent.putExtra("restart", true);
             finish();
-            startActivityForResult(intent, RESTART);
+            startActivity(intent);
         }
 
         if (requestCode == RESTART) {
