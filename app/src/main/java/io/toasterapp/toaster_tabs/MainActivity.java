@@ -17,7 +17,14 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.pusher.client.Pusher;
+import com.pusher.client.PusherOptions;
 import com.pusher.client.channel.PrivateChannel;
+import com.pusher.client.channel.PrivateChannelEventListener;
+import com.pusher.client.channel.SubscriptionEventListener;
+import com.pusher.client.connection.ConnectionEventListener;
+import com.pusher.client.connection.ConnectionState;
+import com.pusher.client.connection.ConnectionStateChange;
+import com.pusher.client.util.HttpAuthorizer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,6 +73,52 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getString("userId", "").toString() != null) {
             mUserId = prefs.getString("userId", "").toString();
             Log.d("mUserId", mUserId);
+
+            HttpAuthorizer authorizer = new HttpAuthorizer(GlobalVariables.ROOT_URL + "/pusher/auth");
+            PusherOptions options = new PusherOptions().setAuthorizer(authorizer);
+
+            mPusher = new Pusher("3f8ba7f168a24152f488", options);
+
+            mPusher.connect(new ConnectionEventListener() {
+                @Override
+                public void onConnectionStateChange(ConnectionStateChange change) {
+                    System.out.println("State changed to " + change.getCurrentState() +
+                            " from " + change.getPreviousState());
+                    if (change.getCurrentState() == ConnectionState.CONNECTED) {
+                        mPusher.connect();
+                    }
+                }
+
+                @Override
+                public void onError(String message, String code, Exception e) {
+                    System.out.println("There was a problem connecting!");
+                }
+            }, ConnectionState.ALL);
+
+            // Subscribe to a channel
+            mChannel = mPusher.subscribePrivate("private-" + mUserId,
+                    new PrivateChannelEventListener() {
+                        @Override
+                        public void onEvent(String channelName, String eventName, String data) {
+                            //TODO
+                            Log.d("channel event", channelName);
+                        }
+
+                        @Override
+                        public void onSubscriptionSucceeded(String channelName) {
+                            //TODO
+                            Log.d("subscription success", channelName);
+                        }
+
+                        @Override
+                        public void onAuthenticationFailure(String message, Exception e) {
+                            System.out.println(
+                                    String.format("Authentication failure due to [%s], exception was [%s]", message, e)
+                            );
+                        }
+
+                        // Other ChannelEventListener methods
+                    });
         }
 
         if (getIntent().hasExtra("restart")) {
