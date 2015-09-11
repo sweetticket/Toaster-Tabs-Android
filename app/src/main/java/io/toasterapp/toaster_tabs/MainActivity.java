@@ -15,17 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
-import com.pusher.client.Pusher;
-import com.pusher.client.PusherOptions;
-import com.pusher.client.channel.ChannelEventListener;
-import com.pusher.client.channel.PrivateChannel;
-import com.pusher.client.channel.PrivateChannelEventListener;
-import com.pusher.client.channel.SubscriptionEventListener;
-import com.pusher.client.connection.ConnectionEventListener;
-import com.pusher.client.connection.ConnectionState;
-import com.pusher.client.connection.ConnectionStateChange;
-import com.pusher.client.util.HttpAuthorizer;
+import com.pubnub.api.Callback;
+import com.pubnub.api.Pubnub;
+import com.pubnub.api.PubnubError;
+import com.pubnub.api.PubnubException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,9 +42,46 @@ public class MainActivity extends AppCompatActivity {
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
 
-    private PrivateChannel mChannel;
-    private Pusher mPusher;
     private String mUserId;
+
+    private void notifyUser(Object message) {
+        try {
+            if (message instanceof JSONObject) {
+                final JSONObject obj = (JSONObject) message;
+                this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), obj.toString(),
+                                Toast.LENGTH_LONG).show();
+
+                        Log.i("Received msg : ", String.valueOf(obj));
+                    }
+                });
+
+            } else if (message instanceof String) {
+                final String obj = (String) message;
+                this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), obj,
+                                Toast.LENGTH_LONG).show();
+                        Log.i("Received msg : ", obj.toString());
+                    }
+                });
+
+            } else if (message instanceof JSONArray) {
+                final JSONArray obj = (JSONArray) message;
+                this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), obj.toString(),
+                                Toast.LENGTH_LONG).show();
+                        Log.i("Received msg : ", obj.toString());
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,83 +110,49 @@ public class MainActivity extends AppCompatActivity {
             mUserId = prefs.getString("userId", "").toString();
             Log.d("mUserId", mUserId);
 
-            String privateChannel = "private-" + mUserId;
-            Log.d("privateChannel", privateChannel);
+            final Pubnub pubnub = new Pubnub("pub-c-dd908081-bca8-4ce9-85b3-8ab1298cc96e", "sub-c-4d362456-58ae-11e5-9d31-02ee2ddab7fe");
 
-            HttpAuthorizer authorizer = new HttpAuthorizer(GlobalVariables.ROOT_URL + "/pusher/auth");
-            PusherOptions options = new PusherOptions().setAuthorizer(authorizer);
+            try {
+                pubnub.subscribe(mUserId, new Callback() {
+                            @Override
+                            public void connectCallback(String channel, Object message) {
+                                pubnub.publish(mUserId, "Hello from the PubNub Java SDK", new Callback() {});
+                            }
 
-            mPusher = new Pusher("3f8ba7f168a24152f488", options);
-            mPusher.connect();
+                            @Override
+                            public void disconnectCallback(String channel, Object message) {
+                                System.out.println("SUBSCRIBE : DISCONNECT on channel:" + channel
+                                        + " : " + message.getClass() + " : "
+                                        + message.toString());
+                            }
 
-//            mPusher.connect(new ConnectionEventListener() {
-//                @Override
-//                public void onConnectionStateChange(ConnectionStateChange change) {
-//                    System.out.println("State changed to " + change.getCurrentState() +
-//                            " from " + change.getPreviousState());
-////                    Howon: why connect again?
-//                    if (change.getCurrentState() == ConnectionState.CONNECTED) {
-//                        mPusher.connect();
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(String message, String code, Exception e) {
-//                    System.out.println("There was a problem connecting!");
-//                }
-//            }, ConnectionState.ALL);
+                            public void reconnectCallback(String channel, Object message) {
+                                System.out.println("SUBSCRIBE : RECONNECT on channel:" + channel
+                                        + " : " + message.getClass() + " : "
+                                        + message.toString());
+                            }
 
+                            @Override
+                            public void successCallback(String channel, Object message) {
+                                System.out.println("SUBSCRIBE : " + channel + " : "
+                                        + message.getClass() + " : " + message.toString());
+                                Log.d("push", message.toString());
+                                notifyUser(message);
 
+                            }
 
-            // Subscribe to a channel
-//            Log.d("subscribing to", privateChannel);
-//            mChannel = mPusher.subscribePrivate(privateChannel,
-//                    new PrivateChannelEventListener() {
-//                        @Override
-//                        public void onEvent(String channelName, String eventName, String data) {
-//                            //TODO
-//                            Log.d("channel event", channelName);
-//                        }
-//
-//                        @Override
-//                        public void onSubscriptionSucceeded(String channelName) {
-//                            //TODO
-//                            Log.d("subscription success", channelName);
-//                        }
-//
-//                        @Override
-//                        public void onAuthenticationFailure(String message, Exception e) {
-//                            Log.d("fuck", "you");
-//                            System.out.println(
-//                                    String.format("Authentication failure due to [%s], exception was [%s]", message, e)
-//                            );
-//                        }
-//                        // Other ChannelEventListener methods
-//                    });
-
-            Log.d("private channel:", privateChannel);
-            mChannel = mPusher.subscribePrivate(privateChannel);
-            mChannel.bind("Toaster", new PrivateChannelEventListener() {
-                        @Override
-                        public void onEvent(String channelName, String eventName, String data) {
-                            //TODO
-                            Log.d("channel event", channelName);
+                            @Override
+                            public void errorCallback(String channel, PubnubError error) {
+                                System.out.println("SUBSCRIBE : ERROR on channel " + channel
+                                        + " : " + error.toString());
+                            }
                         }
+                );
+            } catch (PubnubException e) {
+                System.out.println(e.toString());
+            }
 
-                        @Override
-                        public void onSubscriptionSucceeded(String channelName) {
-                            //TODO
-//                            Log.d("subscription success", channelName);
-                        }
 
-                        @Override
-                        public void onAuthenticationFailure(String message, Exception e) {
-                            Log.d("fuck", "you");
-//                            System.out.println(
-//                                    String.format("Authentication failure due to [%s], exception was [%s]", message, e)
-//                            );
-                        }
-                    });
         }
 
         if (getIntent().hasExtra("restart")) {
