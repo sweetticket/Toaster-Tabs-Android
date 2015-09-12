@@ -1,8 +1,12 @@
 package io.toasterapp.toaster_tabs;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.pubnub.api.Callback;
 import com.pubnub.api.Pubnub;
 import com.pubnub.api.PubnubError;
@@ -31,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     static final int LOGIN_REQUIRED_REQUEST = 1;
     static final int SIGNED_IN = 2;
     static final int RESTART = 3;
+    Pubnub pubnub;
+    GoogleCloudMessaging gcm;
+    public static String SENDER_ID;
+    public static String REG_ID;
     // Declaring Your View and Variables
 
     Toolbar mToolbar;
@@ -88,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
         firstLoadComplete = false;
         oneTabLoadComplete = false;
+        SENDER_ID = "485067897424";
+        REG_ID = "AIzaSyAOTba7T1JomSvEeRHOQxbFKaRYaM1__iI";
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -105,12 +116,24 @@ public class MainActivity extends AppCompatActivity {
         int statusbar_splash_color = Color.rgb(255, 94, 58);
         window.setStatusBarColor(statusbar_splash_color);
 
+        this.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+                pubnub.disconnectAndResubscribe();
+
+            }
+
+        }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+
         SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
         if (prefs.getString("userId", "").toString() != null) {
             mUserId = prefs.getString("userId", "").toString();
             Log.d("mUserId", mUserId);
 
-            final Pubnub pubnub = new Pubnub("pub-c-dd908081-bca8-4ce9-85b3-8ab1298cc96e", "sub-c-4d362456-58ae-11e5-9d31-02ee2ddab7fe");
+            pubnub = new Pubnub("pub-c-dd908081-bca8-4ce9-85b3-8ab1298cc96e",
+                    "sub-c-4d362456-58ae-11e5-9d31-02ee2ddab7fe",
+                    "sec-c-ZGRiMGMyZWMtNzQ5My00MWZkLTliMGQtZjA3NDkwMjQ2NjMy");
 
             try {
                 pubnub.subscribe(mUserId, new Callback() {
@@ -151,6 +174,19 @@ public class MainActivity extends AppCompatActivity {
             } catch (PubnubException e) {
                 System.out.println(e.toString());
             }
+
+            pubnub.enablePushNotificationsOnChannel(mUserId, REG_ID, new Callback() {
+                @Override
+                public void successCallback(String channel, final Object message) {
+                    // Success handler
+                }
+
+                @Override
+                public void errorCallback(String channel, PubnubError pubnubError) {
+                    // Error handler
+                }
+            });
+
 
 
         }
