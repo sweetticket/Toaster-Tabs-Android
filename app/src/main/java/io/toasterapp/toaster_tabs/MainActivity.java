@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
 
-    private PrivateChannel mChannel;
-    private Pusher mPusher;
     private String mUserId;
 
     @Override
@@ -75,83 +73,6 @@ public class MainActivity extends AppCompatActivity {
             mUserId = prefs.getString("userId", "").toString();
             Log.d("mUserId", mUserId);
 
-            String privateChannel = "private-" + mUserId;
-            Log.d("privateChannel", privateChannel);
-
-            HttpAuthorizer authorizer = new HttpAuthorizer(GlobalVariables.ROOT_URL + "/pusher/auth");
-            PusherOptions options = new PusherOptions().setAuthorizer(authorizer);
-
-            mPusher = new Pusher("3f8ba7f168a24152f488", options);
-            mPusher.connect();
-
-//            mPusher.connect(new ConnectionEventListener() {
-//                @Override
-//                public void onConnectionStateChange(ConnectionStateChange change) {
-//                    System.out.println("State changed to " + change.getCurrentState() +
-//                            " from " + change.getPreviousState());
-////                    Howon: why connect again?
-//                    if (change.getCurrentState() == ConnectionState.CONNECTED) {
-//                        mPusher.connect();
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(String message, String code, Exception e) {
-//                    System.out.println("There was a problem connecting!");
-//                }
-//            }, ConnectionState.ALL);
-
-
-
-            // Subscribe to a channel
-//            Log.d("subscribing to", privateChannel);
-//            mChannel = mPusher.subscribePrivate(privateChannel,
-//                    new PrivateChannelEventListener() {
-//                        @Override
-//                        public void onEvent(String channelName, String eventName, String data) {
-//                            //TODO
-//                            Log.d("channel event", channelName);
-//                        }
-//
-//                        @Override
-//                        public void onSubscriptionSucceeded(String channelName) {
-//                            //TODO
-//                            Log.d("subscription success", channelName);
-//                        }
-//
-//                        @Override
-//                        public void onAuthenticationFailure(String message, Exception e) {
-//                            Log.d("fuck", "you");
-//                            System.out.println(
-//                                    String.format("Authentication failure due to [%s], exception was [%s]", message, e)
-//                            );
-//                        }
-//                        // Other ChannelEventListener methods
-//                    });
-
-            Log.d("private channel:", privateChannel);
-            mChannel = mPusher.subscribePrivate(privateChannel);
-            mChannel.bind("Toaster", new PrivateChannelEventListener() {
-                        @Override
-                        public void onEvent(String channelName, String eventName, String data) {
-                            //TODO
-                            Log.d("channel event", channelName);
-                        }
-
-                        @Override
-                        public void onSubscriptionSucceeded(String channelName) {
-                            //TODO
-//                            Log.d("subscription success", channelName);
-                        }
-
-                        @Override
-                        public void onAuthenticationFailure(String message, Exception e) {
-                            Log.d("fuck", "you");
-//                            System.out.println(
-//                                    String.format("Authentication failure due to [%s], exception was [%s]", message, e)
-//                            );
-                        }
-                    });
         }
 
         if (getIntent().hasExtra("restart")) {
