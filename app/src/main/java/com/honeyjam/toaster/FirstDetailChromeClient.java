@@ -7,6 +7,7 @@ package com.honeyjam.toaster;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
@@ -88,7 +89,12 @@ public class FirstDetailChromeClient extends WebChromeClient {
         }
 
         if (message.contains("share")) {
-            //TODO
+            String shareURL = message.substring(message.lastIndexOf(":") + 1);
+            if (!shareURL.startsWith("http://") && !shareURL.startsWith("https://")) {
+                shareURL = "http://" + shareURL;
+            }
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(shareURL));
+            mContext.startActivity(browserIntent);
         }
 
         result.cancel();
