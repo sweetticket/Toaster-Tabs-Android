@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     static final int LOGIN_REQUIRED_REQUEST = 1;
     static final int SIGNED_IN = 2;
     static final int RESTART = 3;
+    static final int NEW_POST = 4;
     // Declaring Your View and Variables
 
     Toolbar mToolbar;
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.newPost) {
 
             Intent intent = new Intent(this, NewPostActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, NEW_POST);
             return true;
         }
 
@@ -299,6 +300,12 @@ public class MainActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(statusbar_color);
             firstLoadComplete = true;
             oneTabLoadComplete = true;
+        }
+
+        if (requestCode == NEW_POST) {
+            if (data.getBooleanExtra("submitted", false)) {
+                pager.setCurrentItem(0);
+            }
         }
     }
 

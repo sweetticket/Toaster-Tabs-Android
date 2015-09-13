@@ -1,5 +1,7 @@
 package com.honeyjam.toaster;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,6 +125,9 @@ public class NewPostActivity extends AppCompatActivity {
         if (id == R.id.submit) {
 
             mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("submitted", true);
+            setResult(Activity.RESULT_OK, resultIntent);
             finish();
 
         }
@@ -132,8 +137,11 @@ public class NewPostActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        super.onBackPressed();
+//        super.onBackPressed();
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("submitted", false);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
 
     }
 
