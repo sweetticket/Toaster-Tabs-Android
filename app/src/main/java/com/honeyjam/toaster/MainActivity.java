@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         firstLoadComplete = false;
         oneTabLoadComplete = false;
         mContext = this;
+        badgeCount = 0;
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
