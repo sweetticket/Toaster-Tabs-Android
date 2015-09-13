@@ -75,7 +75,7 @@ public class NewPostActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        DetailWebViewClient client = new DetailWebViewClient();
+        FirstDetailWebViewClient client = new FirstDetailWebViewClient();
         client.setContext(this);
         client.setWheel(findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);

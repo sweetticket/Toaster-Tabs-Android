@@ -47,19 +47,9 @@ public class MainActivity extends AppCompatActivity {
     static boolean active = false;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        active = true;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        active = false;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d("Activity", "MainActivity onCreate");
 
         firstLoadComplete = false;
         oneTabLoadComplete = false;
@@ -151,12 +141,49 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetBadgeCount();
-                Intent intent = new Intent(mContext, NotificationsActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(mContext, FirstDetailActivity.class);
+                intent.putExtra("path", "/notifications");
+                intent.putExtra("title", "NOTIFICATIONS");
+                intent.putExtra("menu_layout", R.menu.menu_blank);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mContext.startActivity(intent);
+
             }
         });
 
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("Activity", "MainActivity onStart");
+        active = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("Activity", "MainActivity onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Activity", "MainActivity onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("Activity", "MainActivity onStop");
+        active = false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Activity", "MainActivity onDestroy");
     }
 
     @Override
@@ -174,20 +201,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
+
+            Intent intent = new Intent(this, FirstDetailActivity.class);
+            intent.putExtra("path", "/settings");
+            intent.putExtra("title", "SETTINGS");
+            intent.putExtra("menu_layout", R.menu.menu_settings);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
             startActivityForResult(intent, LOGIN_REQUIRED_REQUEST);
+
             return true;
         }
 
         if (id == R.id.profile) {
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, FirstDetailActivity.class);
+            intent.putExtra("path", "/profile");
+            intent.putExtra("title", "MY PROFILE");
+            intent.putExtra("menu_layout", R.menu.menu_blank);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
             return true;
         }
 
         if (id == R.id.notice) {
-            Intent intent = new Intent(this, NotificationsActivity.class);
+
+            Intent intent = new Intent(this, FirstDetailActivity.class);
+            intent.putExtra("path", "/notifications");
+            intent.putExtra("title", "NOTIFICATIONS");
+            intent.putExtra("menu_layout", R.menu.menu_blank);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
             return true;
         }
 
@@ -286,14 +331,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.print(badgeCount);
         mBadge.setVisibility(View.VISIBLE);
         mBadge.setText(numUnread);
-    }
-
-    public void increaseBadgeCount() {
-        if (mBadge.getVisibility() == View.GONE) {
-            mBadge.setVisibility(View.VISIBLE);
-        }
-        badgeCount++;
-        mBadge.setText(badgeCount);
     }
 
     public void resetBadgeCount() {

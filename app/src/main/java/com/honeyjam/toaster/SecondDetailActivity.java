@@ -1,5 +1,6 @@
 package com.honeyjam.toaster;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,12 +19,19 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class PostShowActivity extends AppCompatActivity {
+public class SecondDetailActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
+    int mMenuLayout;
+    String mPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mPath = "/blank";
+
+        Log.d("Activity", "SecondDetailActivity onCreate");
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_right);
@@ -39,7 +47,8 @@ public class PostShowActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("TOAST DETAILS");
+
+
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -76,7 +85,7 @@ public class PostShowActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        DetailWebViewClient client = new DetailWebViewClient();
+        FirstDetailWebViewClient client = new FirstDetailWebViewClient();
         client.setContext(this);
         client.setWheel(findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
@@ -87,13 +96,50 @@ public class PostShowActivity extends AppCompatActivity {
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
-//        if (savedInstanceState==null) {
-        String url = getIntent().getExtras().getString("url");
-        String postURL = GlobalVariables.ROOT_URL + url;
-        Log.d("url", postURL);
-        mWebView.loadUrl(postURL);
-//        }
+        // may need to change to an blank page
+        mWebView.loadUrl(GlobalVariables.ROOT_URL + mPath);
 
+    }
+
+    public void routerGo() {
+        mWebView.loadUrl("javascript:Router.go('"+ mPath +"');");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("Activity", "SecondDetailActivity onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Activity", "SecondDetailActivity onResume");
+        String title = getIntent().getStringExtra("title");
+        mPath = getIntent().getStringExtra("path");
+        mMenuLayout = getIntent().getIntExtra("menu_layout", R.menu.menu_blank);
+        mToolbar.setTitle(title);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Activity", "SecondDetailActivity onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("Activity", "SecondDetailActivity onStop");
+        if (mPath.contains("notifications")) {
+            mWebView.loadUrl("javascript:Meteor.call(\"readAllNotifications\");");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Activity", "SecondDetailActivity onDestroy");
     }
 
     @Override
@@ -112,7 +158,7 @@ public class PostShowActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_post_detail, menu);
+        getMenuInflater().inflate(mMenuLayout, menu);
         return true;
     }
 
@@ -123,8 +169,11 @@ public class PostShowActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
-//            return true;
+//        if (id == R.id.submit) {
+//
+//            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
+//            finish();
+//
 //        }
 
         return super.onOptionsItemSelected(item);
@@ -132,8 +181,12 @@ public class PostShowActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+//        moveTaskToBack(true);
+//        super.onBackPressed();
+        Intent intent = new Intent(getBaseContext(), FirstDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getBaseContext().startActivity(intent);
 
-        super.onBackPressed();
 
     }
 

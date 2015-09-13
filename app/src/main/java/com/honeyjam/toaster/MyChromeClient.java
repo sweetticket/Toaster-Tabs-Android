@@ -42,41 +42,27 @@ public class MyChromeClient extends WebChromeClient {
 
         if (message.contains("/posts/")) {
 
-//            Log.d("url  ", message);
-//            Log.d("context", mContext.toString());
-            Intent intent = new Intent(mContext, PostShowActivity.class);
-            intent.putExtra("url", message);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(mContext, FirstDetailActivity.class);
+            intent.putExtra("path", message);
+            intent.putExtra("title", "TOAST DETAIL");
+            intent.putExtra("menu_layout", R.menu.menu_blank);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             result.cancel();
             mContext.startActivity(intent);
-//            ((MainActivity) mContext).toPostShow(message);
 
         }
 
-        if (message.contains("logout")) {
-            if (!isSigningIn) {
-                isSigningIn = true;
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("login-required", true);
-                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
-                result.cancel();
-                ((Activity) mContext).finish();
-            }
-        }
+//        if (message.contains("logout")) {
+//            if (!isSigningIn) {
+//                isSigningIn = true;
+//                Intent resultIntent = new Intent();
+//                resultIntent.putExtra("login-required", true);
+//                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+//                result.cancel();
+//                ((Activity) mContext).finish();
+//            }
+//        }
 
-        if (message.contains("about")) {
-            Intent intent = new Intent(mContext, SettingsDetailActivity.class);
-            intent.putExtra("url", "/settings/about");
-            result.cancel();
-            mContext.startActivity(intent);
-        }
-
-        if (message.contains("terms")) {
-            Intent intent = new Intent(mContext, SettingsDetailActivity.class);
-            intent.putExtra("url", "/settings/terms");
-            result.cancel();
-            mContext.startActivity(intent);
-        }
 
         if (message.contains("signed-in")) {
             result.cancel();
@@ -100,10 +86,6 @@ public class MyChromeClient extends WebChromeClient {
             mWheel.setVisibility(View.GONE);
         }
 
-        if (message.contains("share")) {
-            //TODO
-        }
-
         if (message.contains("badgeCount")) {
             String newUnread = message.substring(message.lastIndexOf(":") + 1);
             try {
@@ -113,13 +95,13 @@ public class MyChromeClient extends WebChromeClient {
             }
         }
 
-        if (message.contains("badgeCountIncrease")) {
-            try {
-                ((MainActivity) mContext).increaseBadgeCount();
-            } catch (java.lang.ClassCastException e) {
-                Log.d("catch", "class cast exception");
-            }
-        }
+//        if (message.contains("badgeCountIncrease")) {
+//            try {
+//                ((MainActivity) mContext).increaseBadgeCount();
+//            } catch (java.lang.ClassCastException e) {
+//                Log.d("catch", "class cast exception");
+//            }
+//        }
 
         result.cancel();
         return true;

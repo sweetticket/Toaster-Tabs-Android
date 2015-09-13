@@ -1,28 +1,37 @@
 package com.honeyjam.toaster;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.view.Window;
+        import android.view.WindowManager;
+        import android.webkit.WebSettings;
+        import android.webkit.WebView;
 
 /**
  * Created by jennykim on 9/2/15.
  */
-public class SettingsDetailActivity extends AppCompatActivity {
+public class FirstDetailActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
+    int mMenuLayout;
+    String mPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mPath = "/blank";
+
+        Log.d("Activity", "FirstDetailActivity onCreate");
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.animator.slide_in_right, R.animator.slide_out_right);
@@ -39,12 +48,6 @@ public class SettingsDetailActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
 
-        String url = getIntent().getExtras().getString("url");
-        if (url.contains("about")) {
-            mToolbar.setTitle("ABOUT TOASTER");
-        } else if (url.contains("terms")) {
-            mToolbar.setTitle(("TERMS OF SERVICE"));
-        }
 
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
@@ -82,23 +85,61 @@ public class SettingsDetailActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        DetailWebViewClient client = new DetailWebViewClient();
+        FirstDetailWebViewClient client = new FirstDetailWebViewClient();
         client.setContext(this);
         client.setWheel(findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
-        MyChromeClient chromeClient = new MyChromeClient();
+        FirstDetailChromeClient chromeClient = new FirstDetailChromeClient();
         chromeClient.setContext(this);
         chromeClient.setWheel(findViewById(R.id.progress_wheel));
 //        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
-//        if (savedInstanceState==null) {
+        // may need to change to an blank page
+        mWebView.loadUrl(GlobalVariables.ROOT_URL + mPath);
 
-        String settingsURL = GlobalVariables.ROOT_URL + url;
-        mWebView.loadUrl(settingsURL);
-//        }
+    }
 
+    public void routerGo() {
+        mWebView.loadUrl("javascript:Router.go('"+ mPath +"');");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("Activity", "FirstDetailActivity onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Activity", "FirstDetailActivity onResume");
+        String title = getIntent().getStringExtra("title");
+        mPath = getIntent().getStringExtra("path");
+        mMenuLayout = getIntent().getIntExtra("menu_layout", R.menu.menu_blank);
+        mToolbar.setTitle(title);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Activity", "FirstDetailActivity onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("Activity", "FirstDetailActivity onStop");
+        if (mPath.contains("notifications")) {
+            mWebView.loadUrl("javascript:Meteor.call(\"readAllNotifications\");");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Activity", "FirstDetailActivity onDestroy");
     }
 
     @Override
@@ -117,7 +158,7 @@ public class SettingsDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(mMenuLayout, menu);
         return true;
     }
 
@@ -128,8 +169,11 @@ public class SettingsDetailActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
-//            return true;
+//        if (id == R.id.submit) {
+//
+//            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
+//            finish();
+//
 //        }
 
         return super.onOptionsItemSelected(item);
@@ -137,8 +181,12 @@ public class SettingsDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+//        moveTaskToBack(true);
+//        super.onBackPressed();
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getBaseContext().startActivity(intent);
 
-        super.onBackPressed();
 
     }
 

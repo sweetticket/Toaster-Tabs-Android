@@ -2,11 +2,12 @@ package com.honeyjam.toaster;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class TabWebViewClient extends WebViewClient {
+public class FirstDetailWebViewClient extends WebViewClient {
 
     Context mContext;
     View mWheel;
@@ -19,24 +20,27 @@ public class TabWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-
         view.loadUrl(url);
 
-        return false;
+        return true;
     }
-
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
         super.onPageStarted(view, url, favicon);
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
-
-
+        // Display the keyboard automatically when relevant
+//        mWheel.setVisibility(View.GONE);
         super.onPageFinished(view, url);
+
+        //FIXME LATER
+        try {
+            ((FirstDetailActivity) mContext).routerGo();
+        } catch (java.lang.ClassCastException e) {
+            Log.d("exception", "Not FirstDetailActivity");
+        }
     }
 }

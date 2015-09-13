@@ -7,7 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class DetailWebViewClient extends WebViewClient {
+public class SecondDetailWebViewClient extends WebViewClient {
 
     Context mContext;
     View mWheel;
@@ -35,5 +35,12 @@ public class DetailWebViewClient extends WebViewClient {
         // Display the keyboard automatically when relevant
 //        mWheel.setVisibility(View.GONE);
         super.onPageFinished(view, url);
+
+        //FIXME LATER
+        try {
+            ((SecondDetailActivity) mContext).routerGo();
+        } catch (ClassCastException e) {
+            Log.d("exception", "Not SecondDetailActivity");
+        }
     }
 }
