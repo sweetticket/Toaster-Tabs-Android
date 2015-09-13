@@ -54,10 +54,10 @@ public class FirstDetailChromeClient extends WebChromeClient {
 
         if (message.contains("logout")) {
             if (!isSigningIn) {
-                isSigningIn = true;
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("login-required", true);
-                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+//                isSigningIn = true;
+//                Intent resultIntent = new Intent();
+//                resultIntent.putExtra("login-required", true);
+//                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
                 result.cancel();
                 ((Activity) mContext).finish();
             }
@@ -76,7 +76,7 @@ public class FirstDetailChromeClient extends WebChromeClient {
         if (message.contains("terms")) {
             Intent intent = new Intent(mContext, SecondDetailActivity.class);
             intent.putExtra("path", "/settings/terms");
-            intent.putExtra("title", "TERMS");
+            intent.putExtra("title", "TERMS OF SERVICE");
             intent.putExtra("menu_layout", R.menu.menu_blank);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             result.cancel();

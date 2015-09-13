@@ -52,17 +52,6 @@ public class MyChromeClient extends WebChromeClient {
 
         }
 
-//        if (message.contains("logout")) {
-//            if (!isSigningIn) {
-//                isSigningIn = true;
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("login-required", true);
-//                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
-//                result.cancel();
-//                ((Activity) mContext).finish();
-//            }
-//        }
-
 
         if (message.contains("signed-in")) {
             result.cancel();
@@ -94,14 +83,6 @@ public class MyChromeClient extends WebChromeClient {
                 Log.d("catch", "class cast exception");
             }
         }
-
-//        if (message.contains("badgeCountIncrease")) {
-//            try {
-//                ((MainActivity) mContext).increaseBadgeCount();
-//            } catch (java.lang.ClassCastException e) {
-//                Log.d("catch", "class cast exception");
-//            }
-//        }
 
         result.cancel();
         return true;

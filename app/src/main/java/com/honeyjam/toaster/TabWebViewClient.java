@@ -36,7 +36,7 @@ public class TabWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
 
-
+        ((MainActivity) mContext).checkIfLoaded();
         super.onPageFinished(view, url);
     }
 }

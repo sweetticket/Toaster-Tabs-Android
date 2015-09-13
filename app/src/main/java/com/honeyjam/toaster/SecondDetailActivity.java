@@ -85,7 +85,7 @@ public class SecondDetailActivity extends AppCompatActivity {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        FirstDetailWebViewClient client = new FirstDetailWebViewClient();
+        SecondDetailWebViewClient client = new SecondDetailWebViewClient();
         client.setContext(this);
         client.setWheel(findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
