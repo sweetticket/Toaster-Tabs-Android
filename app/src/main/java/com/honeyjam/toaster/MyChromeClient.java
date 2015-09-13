@@ -21,6 +21,7 @@ public class MyChromeClient extends WebChromeClient {
     static boolean isSigningIn = false;
 
 
+
     public void setContext(Context context) {
         this.mContext = context;
 //        Log.d("context", mContext.toString());
@@ -104,7 +105,19 @@ public class MyChromeClient extends WebChromeClient {
 
         if (message.contains("badgeCount")) {
             String newUnread = message.substring(message.lastIndexOf(":") + 1);
-//            ((MainActivity) mContext).setBadgeText(newUnread);
+            try {
+                ((MainActivity) mContext).setBadgeCount(newUnread);
+            } catch (java.lang.ClassCastException e) {
+                Log.d("catch", "class cast exception");
+            }
+        }
+
+        if (message.contains("badgeCountIncrease")) {
+            try {
+                ((MainActivity) mContext).increaseBadgeCount();
+            } catch (java.lang.ClassCastException e) {
+                Log.d("catch", "class cast exception");
+            }
         }
 
         result.cancel();

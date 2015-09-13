@@ -1,5 +1,6 @@
 package com.honeyjam.toaster;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,7 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import at.markushi.ui.ActionView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,16 +37,33 @@ public class MainActivity extends AppCompatActivity {
     int Numboftabs = 2;
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
+    int badgeCount;
 
+    Context mContext;
     TextView mBadge;
 
     private String mUserId;
+
+    static boolean active = false;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         firstLoadComplete = false;
         oneTabLoadComplete = false;
+        mContext = this;
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -121,7 +142,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-//        mBadge = (TextView) findViewById(R.id.badgeText);
+
+        View noticeActionView = menu.findItem(R.id.notice).getActionView();
+        mBadge = (TextView) noticeActionView.findViewById(R.id.actionbar_notifcation_textview);
+        noticeActionView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                resetBadgeCount();
+                Intent intent = new Intent(mContext, NotificationsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return true;
     }
@@ -248,7 +280,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setBadgeText(String numUnread) {
+    public void setBadgeCount(String numUnread) {
+        badgeCount = Integer.parseInt(numUnread);
+        System.out.print(badgeCount);
+        mBadge.setVisibility(View.VISIBLE);
         mBadge.setText(numUnread);
+    }
+
+    public void increaseBadgeCount() {
+        if (mBadge.getVisibility() == View.GONE) {
+            mBadge.setVisibility(View.VISIBLE);
+        }
+        badgeCount++;
+        mBadge.setText(badgeCount);
+    }
+
+    public void resetBadgeCount() {
+        badgeCount = 0;
+        mBadge.setVisibility(View.GONE);
     }
 }
