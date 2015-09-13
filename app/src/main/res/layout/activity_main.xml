@@ -25,7 +25,8 @@
             android:layout_width="match_parent"
             />
 
-        <io.toasterapp.toaster_tabs.SlidingTabLayout
+
+        <com.honeyjam.toaster.SlidingTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

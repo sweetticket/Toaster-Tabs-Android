@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.content.Context;
 import android.os.Build;
@@ -14,7 +14,7 @@ import android.webkit.WebView;
 /**
  * Created by hp1 on 21-01-2015.
  */
-public class SignInTab extends Fragment {
+public class Tab1 extends Fragment {
 
     WebView mWebView;
     Context mContext;
@@ -53,7 +53,7 @@ public class SignInTab extends Fragment {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        DetailWebViewClient client = new DetailWebViewClient();
+        TabWebViewClient client = new TabWebViewClient();
         client.setContext(mContext);
         client.setWheel(v.findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
@@ -83,7 +83,7 @@ public class SignInTab extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/signIn");
+            mWebView.loadUrl(GlobalVariables.ROOT_URL);
         }
 
         return v;

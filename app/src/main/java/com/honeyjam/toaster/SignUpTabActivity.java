@@ -1,7 +1,5 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -11,10 +9,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 
 public class SignUpTabActivity extends AppCompatActivity {

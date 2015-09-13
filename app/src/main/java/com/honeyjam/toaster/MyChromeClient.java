@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 /**
  * Created by jennykim on 9/2/15.
@@ -7,7 +7,6 @@ package io.toasterapp.toaster_tabs;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
@@ -46,6 +45,7 @@ public class MyChromeClient extends WebChromeClient {
 //            Log.d("context", mContext.toString());
             Intent intent = new Intent(mContext, PostShowActivity.class);
             intent.putExtra("url", message);
+            result.cancel();
             mContext.startActivity(intent);
 //            ((MainActivity) mContext).toPostShow(message);
 
@@ -57,6 +57,7 @@ public class MyChromeClient extends WebChromeClient {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("login-required", true);
                 ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+                result.cancel();
                 ((Activity) mContext).finish();
             }
         }
@@ -64,16 +65,20 @@ public class MyChromeClient extends WebChromeClient {
         if (message.contains("about")) {
             Intent intent = new Intent(mContext, SettingsDetailActivity.class);
             intent.putExtra("url", "/settings/about");
+            result.cancel();
             mContext.startActivity(intent);
         }
 
         if (message.contains("terms")) {
             Intent intent = new Intent(mContext, SettingsDetailActivity.class);
             intent.putExtra("url", "/settings/terms");
+            result.cancel();
             mContext.startActivity(intent);
         }
 
         if (message.contains("signed-in")) {
+            result.cancel();
+            view.loadUrl("javascript:Meteor.call(\"registerUserIdToParse\", \"" + GlobalVariables.PARSE_OBJECT_ID +"\");");
             String userId = message.substring(message.lastIndexOf(":") + 1);
             Intent resultIntent = new Intent();
             resultIntent.putExtra("userId", userId);
@@ -97,20 +102,15 @@ public class MyChromeClient extends WebChromeClient {
             //TODO
         }
 
+        if (message.contains("badgeCount")) {
+            String newUnread = message.substring(message.lastIndexOf(":") + 1);
+//            ((MainActivity) mContext).setBadgeText(newUnread);
+        }
+
         result.cancel();
         return true;
 
     }
 
-//    public void onProgressChanged(WebView view, int progress)
-//    {
-//        if(progress < 100 && mProgressBar.getVisibility() == ProgressBar.GONE){
-//            mProgressBar.setVisibility(ProgressBar.VISIBLE);
-//        }
-//        mProgressBar.setProgress(progress);
-//        if(progress == 100) {
-//            mProgressBar.setVisibility(ProgressBar.GONE);
-//        }
-//    }
 
 }

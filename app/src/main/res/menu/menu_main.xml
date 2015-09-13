@@ -16,11 +16,13 @@
         ></item>
     <item
         android:id="@+id/notice"
+        app:actionLayout="@layout/badge_text"
         android:orderInCategory="200"
         android:title="Notifications"
         android:icon="@mipmap/megaphone"
         app:showAsAction="always"
         ></item>
+
     <item
         android:id="@+id/settings"
         android:orderInCategory="300"
@@ -28,6 +30,7 @@
         android:icon="@mipmap/settings_ios"
         app:showAsAction="always"
         ></item>
+
     <item
         android:id="@+id/newPost"
         android:orderInCategory="400"

@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.content.Context;
 import android.os.Build;
@@ -14,7 +14,7 @@ import android.webkit.WebView;
 /**
  * Created by hp1 on 21-01-2015.
  */
-public class SignUpTab extends Fragment {
+public class SignInTab extends Fragment {
 
     WebView mWebView;
     Context mContext;
@@ -83,7 +83,7 @@ public class SignUpTab extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/signUp");
+            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/signIn");
         }
 
         return v;

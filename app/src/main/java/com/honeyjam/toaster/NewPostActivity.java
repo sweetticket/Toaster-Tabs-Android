@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -16,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class NotificationsActivity extends AppCompatActivity {
+public class NewPostActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -37,7 +37,7 @@ public class NotificationsActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("NOTIFICATIONS");
+        mToolbar.setTitle("NEW TOAST");
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -86,17 +86,10 @@ public class NotificationsActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = GlobalVariables.ROOT_URL + "/notifications";
+        String postURL = GlobalVariables.ROOT_URL + "/newPost";
         mWebView.loadUrl(postURL);
 //        }
 
-    }
-
-    @Override
-    public void onStop () {
-    //do your stuff here
-        mWebView.loadUrl("javascript:Meteor.call(\"readAllNotifications\");");
-        super.onStop();
     }
 
     @Override
@@ -115,7 +108,7 @@ public class NotificationsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_blank, menu);
+        getMenuInflater().inflate(R.menu.menu_new_post, menu);
         return true;
     }
 

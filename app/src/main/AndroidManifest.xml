@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.toasterapp.toaster_tabs" >
+    package="com.honeyjam.toaster" >
 
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,8 +18,8 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission android:protectionLevel="signature"
-        android:name="io.toasterapp.toaster_tabs.permission.C2D_MESSAGE" />
-    <uses-permission android:name="io.toasterapp.toaster_tabs.permission.C2D_MESSAGE" />
+        android:name="com.honeyjam.toaster.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.honeyjam.toaster.permission.C2D_MESSAGE" />
 
     <application android:name="MyApplication"
         android:allowBackup="true"
@@ -71,7 +71,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="io.toasterapp.toaster_tabs" />
+                <category android:name="com.honeyjam.toaster" />
             </intent-filter>
         </receiver>
     </application>

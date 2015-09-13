@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 
 /**
@@ -22,6 +22,7 @@ package io.toasterapp.toaster_tabs;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;

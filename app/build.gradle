@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.0.1"
 
     defaultConfig {
-        applicationId "io.toasterapp.toaster_tabs"
+        applicationId "com.honeyjam.toaster"
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1

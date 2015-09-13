@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -16,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class NewPostActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -37,7 +37,7 @@ public class NewPostActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("NEW TOAST");
+        mToolbar.setTitle("SETTINGS");
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class NewPostActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = GlobalVariables.ROOT_URL + "/newPost";
+        String postURL = GlobalVariables.ROOT_URL + "/settings";
         mWebView.loadUrl(postURL);
 //        }
 
@@ -108,7 +108,7 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_post, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -117,14 +117,8 @@ public class NewPostActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        if (id == R.id.submit) {
-
-            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
-            finish();
-
-        }
+//        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }

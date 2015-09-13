@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,17 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.pusher.client.Pusher;
-import com.pusher.client.PusherOptions;
-import com.pusher.client.channel.ChannelEventListener;
-import com.pusher.client.channel.PrivateChannel;
-import com.pusher.client.channel.PrivateChannelEventListener;
-import com.pusher.client.channel.SubscriptionEventListener;
-import com.pusher.client.connection.ConnectionEventListener;
-import com.pusher.client.connection.ConnectionState;
-import com.pusher.client.connection.ConnectionStateChange;
-import com.pusher.client.util.HttpAuthorizer;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     int Numboftabs = 2;
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
+
+    TextView mBadge;
 
     private String mUserId;
 
@@ -72,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getString("userId", "").toString() != null) {
             mUserId = prefs.getString("userId", "").toString();
             Log.d("mUserId", mUserId);
-
         }
 
         if (getIntent().hasExtra("restart")) {
@@ -130,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+//        mBadge = (TextView) findViewById(R.id.badgeText);
+
         return true;
     }
 
@@ -255,10 +248,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-//    public void toPostShow(String url) {
-//        Intent intent = new Intent(this, PostShowActivity.class);
-//        intent.putExtra("url", url);
-//        startActivity(intent);
-//    }
+    public void setBadgeText(String numUnread) {
+        mBadge.setText(numUnread);
+    }
 }

@@ -1,11 +1,10 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class PostShowActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -38,7 +37,7 @@ public class PostShowActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("TOAST DETAILS");
+        mToolbar.setTitle("MY PROFILE");
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -87,9 +86,7 @@ public class PostShowActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String url = getIntent().getExtras().getString("url");
-        String postURL = GlobalVariables.ROOT_URL + url;
-        Log.d("url", postURL);
+        String postURL = GlobalVariables.ROOT_URL + "/profile";
         mWebView.loadUrl(postURL);
 //        }
 
@@ -111,7 +108,7 @@ public class PostShowActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_post_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_blank, menu);
         return true;
     }
 
@@ -122,9 +119,12 @@ public class PostShowActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.submit) {
+
+            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
+            finish();
+
+        }
 
         return super.onOptionsItemSelected(item);
     }

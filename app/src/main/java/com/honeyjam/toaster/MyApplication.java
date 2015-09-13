@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.app.Application;
 import android.content.res.Configuration;
@@ -20,11 +20,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.initialize(this, "nGWY63hAKCyyMHS41xmjNiL4mCIqsJ0TBGWAG4vy", "w1ps0nxnPNfpJvIGnw52wCl5Og5eOLgiwiuXHn6i");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         // background save wrapped in Async to prevent freezing
 //        new BackgroundSave().execute(getApplicationContext());
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        installation.saveInBackground();
+        GlobalVariables.setParseObjectId(installation.getObjectId());
     }
 
     @Override

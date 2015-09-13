@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.content.Context;
 import android.os.Build;
@@ -14,7 +14,7 @@ import android.webkit.WebView;
 /**
  * Created by hp1 on 21-01-2015.
  */
-public class Tab2 extends Fragment {
+public class SignUpTab extends Fragment {
 
     WebView mWebView;
     Context mContext;
@@ -25,7 +25,7 @@ public class Tab2 extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.tab_view,container,false);
+        View v =inflater.inflate(R.layout.tab_view, container, false);
         this.mWebView = (WebView) v.findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
@@ -53,7 +53,7 @@ public class Tab2 extends Fragment {
         else {
             mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        TabWebViewClient client = new TabWebViewClient();
+        DetailWebViewClient client = new DetailWebViewClient();
         client.setContext(mContext);
         client.setWheel(v.findViewById(R.id.progress_wheel));
         mWebView.setWebViewClient(client);
@@ -62,7 +62,10 @@ public class Tab2 extends Fragment {
         chromeClient.setWheel(v.findViewById(R.id.progress_wheel));
 //        chromeClient.setProgressBar((ProgressBar) v.findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
+
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+
+//        mWebView.addJavascriptInterface(new MyJSI(mContext), "myjsi");
 
 //        mWebView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //
@@ -80,7 +83,7 @@ public class Tab2 extends Fragment {
 //        });
 
         if (savedInstanceState==null) {
-            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/trending");
+            mWebView.loadUrl(GlobalVariables.ROOT_URL + "/signUp");
         }
 
         return v;

@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -16,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsDetailActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -37,7 +37,14 @@ public class SettingsActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mToolbar.setTitle("SETTINGS");
+
+        String url = getIntent().getExtras().getString("url");
+        if (url.contains("about")) {
+            mToolbar.setTitle("ABOUT TOASTER");
+        } else if (url.contains("terms")) {
+            mToolbar.setTitle(("TERMS OF SERVICE"));
+        }
+
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -86,8 +93,9 @@ public class SettingsActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-        String postURL = GlobalVariables.ROOT_URL + "/settings";
-        mWebView.loadUrl(postURL);
+
+        String settingsURL = GlobalVariables.ROOT_URL + url;
+        mWebView.loadUrl(settingsURL);
 //        }
 
     }
@@ -117,8 +125,11 @@ public class SettingsActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

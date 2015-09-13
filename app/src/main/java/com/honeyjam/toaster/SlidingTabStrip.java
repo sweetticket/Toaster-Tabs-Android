@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 /*
  * Copyright 2014 Google Inc. All rights reserved.

@@ -1,4 +1,4 @@
-package io.toasterapp.toaster_tabs;
+package com.honeyjam.toaster;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -16,7 +16,7 @@ import android.webkit.WebView;
 /**
  * Created by jennykim on 9/2/15.
  */
-public class SettingsDetailActivity extends AppCompatActivity {
+public class NotificationsActivity extends AppCompatActivity {
     Toolbar mToolbar;
     WebView mWebView;
 
@@ -37,14 +37,7 @@ public class SettingsDetailActivity extends AppCompatActivity {
         window.setStatusBarColor(statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-
-        String url = getIntent().getExtras().getString("url");
-        if (url.contains("about")) {
-            mToolbar.setTitle("ABOUT TOASTER");
-        } else if (url.contains("terms")) {
-            mToolbar.setTitle(("TERMS OF SERVICE"));
-        }
-
+        mToolbar.setTitle("NOTIFICATIONS");
         mToolbar.setNavigationIcon(R.mipmap.back_ios);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -93,11 +86,17 @@ public class SettingsDetailActivity extends AppCompatActivity {
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
 //        if (savedInstanceState==null) {
-
-        String settingsURL = GlobalVariables.ROOT_URL + url;
-        mWebView.loadUrl(settingsURL);
+        String postURL = GlobalVariables.ROOT_URL + "/notifications";
+        mWebView.loadUrl(postURL);
 //        }
 
+    }
+
+    @Override
+    public void onStop () {
+    //do your stuff here
+        mWebView.loadUrl("javascript:Meteor.call(\"readAllNotifications\");");
+        super.onStop();
     }
 
     @Override
@@ -116,7 +115,7 @@ public class SettingsDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_blank, menu);
         return true;
     }
 
@@ -127,9 +126,12 @@ public class SettingsDetailActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.submit) {
+
+            mWebView.loadUrl("javascript:Template.newPost.submitNewPost();");
+            finish();
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
