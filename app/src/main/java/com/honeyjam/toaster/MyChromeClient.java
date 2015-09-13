@@ -46,6 +46,7 @@ public class MyChromeClient extends WebChromeClient {
 //            Log.d("context", mContext.toString());
             Intent intent = new Intent(mContext, PostShowActivity.class);
             intent.putExtra("url", message);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             result.cancel();
             mContext.startActivity(intent);
 //            ((MainActivity) mContext).toPostShow(message);
