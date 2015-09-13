@@ -21,14 +21,15 @@ android {
 
 repositories {
     maven { url 'http://clojars.org/repo' }
+
 }
 
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.parse.bolts:bolts-android:1.+'
-//    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
-    compile 'com.pusher:pusher-java-client:0.3.3'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+//    compile 'com.pusher:pusher-java-client:0.3.3'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.android.support:support-v4:21.0.+'
     compile 'com.android.support:appcompat-v7:21.0.+'
