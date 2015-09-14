@@ -189,6 +189,7 @@ public class FirstDetailActivity extends AppCompatActivity {
         Intent intent;
 
         if (mPath.contains("notVerified")) {
+
             intent = new Intent(getBaseContext(), SignUpTabActivity.class);
 //            intent = new Intent();
 //            intent.putExtra("login-required", true);

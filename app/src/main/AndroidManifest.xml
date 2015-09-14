@@ -46,7 +46,8 @@
         <activity android:name=".NewPostActivity"
             android:windowSoftInputMode="stateVisible"></activity>
         <activity android:name=".SignUpTabActivity"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible"
+            android:launchMode="singleTask"></activity>
         <activity android:name=".FirstDetailActivity"
             android:launchMode="singleTask"></activity>
         <activity android:name=".SecondDetailActivity"

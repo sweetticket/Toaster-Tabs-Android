@@ -59,6 +59,7 @@ public class FirstDetailChromeClient extends WebChromeClient {
 //                Intent resultIntent = new Intent();
 //                resultIntent.putExtra("login-required", true);
 //                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+                MainActivity.menuAccessAllowed = false;
                 result.cancel();
                 ((Activity) mContext).finish();
             }

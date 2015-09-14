@@ -71,10 +71,10 @@ public class MyChromeClient extends WebChromeClient {
             String userId = message.substring(message.lastIndexOf(":") + 1);
             Intent resultIntent;
             if (message.contains("notVerified")) {
-                SharedPreferences prefs = mContext.getSharedPreferences("UserInfo", 0);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("userId", userId);
-                editor.apply();
+//                SharedPreferences prefs = mContext.getSharedPreferences("UserInfo", 0);
+//                SharedPreferences.Editor editor = prefs.edit();
+//                editor.putString("userId", userId);
+//                editor.apply();
 
                 resultIntent = new Intent(mContext, FirstDetailActivity.class);
                 resultIntent.putExtra("path", "/notVerified");
@@ -110,6 +110,11 @@ public class MyChromeClient extends WebChromeClient {
             } catch (java.lang.ClassCastException e) {
                 Log.d("catch", "class cast exception");
             }
+        }
+
+        if (message.contains("isSignedInVerified")) {
+            MainActivity.menuAccessAllowed = true;
+            ((MainActivity) mContext).invalidateOptionsMenu();
         }
 
         result.cancel();

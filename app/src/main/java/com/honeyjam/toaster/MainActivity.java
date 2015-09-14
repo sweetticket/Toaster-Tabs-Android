@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     int Numboftabs = 2;
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
-    boolean menuAccessAllowed;
+    static boolean menuAccessAllowed;
     int badgeCount;
 
     Context mContext;
@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("restart")) {
             menuAccessAllowed = true;
-            invalidateOptionsMenu();
             if (getIntent().getBooleanExtra("restart", true)) {
                 findViewById(R.id.splash_screen).setVisibility(View.GONE);
                 statusbar_splash_color = Color.rgb(255, 70, 79);
@@ -139,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         menu.clear();
         if (menuAccessAllowed) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
+            pager.setVisibility(View.VISIBLE);
 
             View noticeActionView = menu.findItem(R.id.notice).getActionView();
             mBadge = (TextView) noticeActionView.findViewById(R.id.actionbar_notifcation_textview);
@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             getMenuInflater().inflate(R.menu.menu_blank, menu);
+            pager.setVisibility(View.GONE);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -184,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d("Activity", "MainActivity onResume");
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -357,9 +359,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setBadgeCount(String numUnread) {
         badgeCount = Integer.parseInt(numUnread);
-        System.out.print(badgeCount);
-        mBadge.setVisibility(View.VISIBLE);
-        mBadge.setText(numUnread);
+        if (menuAccessAllowed) {
+            mBadge.setVisibility(View.VISIBLE);
+            mBadge.setText(numUnread);
+        }
     }
 
     public void resetBadgeCount() {
