@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     int Numboftabs = 2;
     static boolean firstLoadComplete;
     static boolean oneTabLoadComplete;
+    boolean menuAccessAllowed;
     int badgeCount;
 
     Context mContext;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         firstLoadComplete = false;
         oneTabLoadComplete = false;
+        menuAccessAllowed = false;
         mContext = this;
         badgeCount = 0;
 
@@ -80,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (getIntent().hasExtra("restart")) {
+            menuAccessAllowed = true;
+            invalidateOptionsMenu();
             if (getIntent().getBooleanExtra("restart", true)) {
                 findViewById(R.id.splash_screen).setVisibility(View.GONE);
                 statusbar_splash_color = Color.rgb(255, 70, 79);
@@ -129,28 +134,41 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        menu.clear();
+        if (menuAccessAllowed) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+
+            View noticeActionView = menu.findItem(R.id.notice).getActionView();
+            mBadge = (TextView) noticeActionView.findViewById(R.id.actionbar_notifcation_textview);
+            noticeActionView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    resetBadgeCount();
+                    Intent intent = new Intent(mContext, FirstDetailActivity.class);
+                    intent.putExtra("path", "/notifications");
+                    intent.putExtra("title", "NOTIFICATIONS");
+                    intent.putExtra("menu_layout", R.menu.menu_blank);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    mContext.startActivity(intent);
+
+                }
+            });
+        }
+        else {
+            getMenuInflater().inflate(R.menu.menu_blank, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        View noticeActionView = menu.findItem(R.id.notice).getActionView();
-        mBadge = (TextView) noticeActionView.findViewById(R.id.actionbar_notifcation_textview);
-        noticeActionView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                resetBadgeCount();
-                Intent intent = new Intent(mContext, FirstDetailActivity.class);
-                intent.putExtra("path", "/notifications");
-                intent.putExtra("title", "NOTIFICATIONS");
-                intent.putExtra("menu_layout", R.menu.menu_blank);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                mContext.startActivity(intent);
-
-            }
-        });
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_blank, menu);
 
         return true;
     }
@@ -259,8 +277,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Check which request we're responding to
         if (requestCode == LOGIN_REQUIRED_REQUEST) {
+            Log.d("activityResult", "requestCode: LOGIN_REQUIRED_REQUEST");
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                Log.d("activityResult", "resultCode: RESULT_OK");
                 boolean loginRequired = data.getExtras().getBoolean("login-required");
                 if (loginRequired) {
 //                    mPusher.disconnect();
@@ -343,5 +363,12 @@ public class MainActivity extends AppCompatActivity {
     public void resetBadgeCount() {
         badgeCount = 0;
         mBadge.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void finish() {
+        ViewGroup view = (ViewGroup) getWindow().getDecorView();
+        view.removeAllViews();
+        super.finish();
     }
 }

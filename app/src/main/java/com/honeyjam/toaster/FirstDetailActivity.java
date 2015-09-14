@@ -1,5 +1,6 @@
 package com.honeyjam.toaster;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
         import android.os.Build;
@@ -131,6 +132,9 @@ public class FirstDetailActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         Log.d("Activity", "FirstDetailActivity onStop");
+        if (mPath.contains("notVerified")) {
+            mWebView.loadUrl("javascript:Meteor.logout();Session.set(\"currentUserId\", undefined);");
+        }
         if (mPath.contains("notifications")) {
             mWebView.loadUrl("javascript:Meteor.call(\"readAllNotifications\");");
         }
@@ -186,10 +190,19 @@ public class FirstDetailActivity extends AppCompatActivity {
 
         if (mPath.contains("notVerified")) {
             intent = new Intent(getBaseContext(), SignUpTabActivity.class);
+//            intent = new Intent();
+//            intent.putExtra("login-required", true);
+//            intent.putExtra("restart", true);
             mWebView.loadUrl("javascript:Meteor.logout();Session.set(\"currentUserId\", undefined);");
+//            setResult(Activity.RESULT_OK, intent);
+//            finish();
+
         } else {
             intent = new Intent(getBaseContext(), MainActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            getBaseContext().startActivity(intent);
         }
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getBaseContext().startActivity(intent);
     }
