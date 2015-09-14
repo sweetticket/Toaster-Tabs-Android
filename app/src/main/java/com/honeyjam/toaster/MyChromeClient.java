@@ -52,6 +52,17 @@ public class MyChromeClient extends WebChromeClient {
 
         }
 
+        if (message.contains("notVerified")) {
+            Intent intent = new Intent(mContext, FirstDetailActivity.class);
+            intent.putExtra("path", "/notVerified");
+            intent.putExtra("title", "VERIFICATION");
+            intent.putExtra("menu_layout", R.menu.menu_blank);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            result.cancel();
+            mContext.startActivity(intent);
+
+        }
+
 
         if (message.contains("signed-in")) {
             result.cancel();

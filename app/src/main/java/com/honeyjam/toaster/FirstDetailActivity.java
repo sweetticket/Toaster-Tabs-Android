@@ -181,13 +181,17 @@ public class FirstDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        moveTaskToBack(true);
-//        super.onBackPressed();
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+
+        Intent intent;
+
+        if (mPath.contains("notVerified")) {
+            intent = new Intent(getBaseContext(), SignUpTabActivity.class);
+            mWebView.loadUrl("javascript:Meteor.logout();Session.set(\"currentUserId\", undefined);");
+        } else {
+            intent = new Intent(getBaseContext(), MainActivity.class);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getBaseContext().startActivity(intent);
-
-
     }
 
     @Override
