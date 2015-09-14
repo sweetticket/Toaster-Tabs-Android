@@ -131,4 +131,9 @@ public class SignUpTabActivity extends AppCompatActivity {
         super.finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        // do nothing
+    }
+
 }

@@ -298,17 +298,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (requestCode == SIGNED_IN) {
-
-            String userId = data.getStringExtra("userId");
-            SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("userId", userId);
-            editor.apply();
-
             Intent intent = getIntent();
+
+            if (data != null) {
+                String userId = data.getStringExtra("userId");
+                SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("userId", userId);
+                editor.apply();
+
 //            finish();
 //            startActivityForResult(intent, RESTART);
-            intent.putExtra("restart", true);
+                intent.putExtra("restart", true);
+            }
 
             finish();
             startActivity(intent);
@@ -370,5 +372,10 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup view = (ViewGroup) getWindow().getDecorView();
         view.removeAllViews();
         super.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing
     }
 }

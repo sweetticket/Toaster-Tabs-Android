@@ -9,7 +9,7 @@ import com.parse.ParseInstallation;
 /**
  * Created by jennykim on 9/12/15.
  */
-public class MyApplication extends Application {
+public class ToasterApplication extends Application {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
