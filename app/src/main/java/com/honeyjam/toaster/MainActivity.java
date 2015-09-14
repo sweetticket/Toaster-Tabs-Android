@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         menu.clear();
         if (menuAccessAllowed) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
-            pager.setVisibility(View.VISIBLE);
+            pager.setClickable(true);
 
             View noticeActionView = menu.findItem(R.id.notice).getActionView();
             mBadge = (TextView) noticeActionView.findViewById(R.id.actionbar_notifcation_textview);
@@ -158,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         else {
+            pager.setClickable(false);
             getMenuInflater().inflate(R.menu.menu_blank, menu);
-            pager.setVisibility(View.GONE);
         }
         return super.onPrepareOptionsMenu(menu);
     }
