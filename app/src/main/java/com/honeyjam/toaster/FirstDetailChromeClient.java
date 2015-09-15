@@ -67,7 +67,7 @@ public class FirstDetailChromeClient extends WebChromeClient {
 
         if (message.contains("about")) {
             Intent intent = new Intent(mContext, SecondDetailActivity.class);
-            intent.putExtra("path", "/settings/about");
+            intent.putExtra("path", "/about");
             intent.putExtra("title", "ABOUT");
             intent.putExtra("menu_layout", R.menu.menu_blank);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -77,8 +77,18 @@ public class FirstDetailChromeClient extends WebChromeClient {
 
         if (message.contains("terms")) {
             Intent intent = new Intent(mContext, SecondDetailActivity.class);
-            intent.putExtra("path", "/settings/terms");
+            intent.putExtra("path", "/terms");
             intent.putExtra("title", "TERMS OF SERVICE");
+            intent.putExtra("menu_layout", R.menu.menu_blank);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            result.cancel();
+            mContext.startActivity(intent);
+        }
+
+        if (message.contains("privacy")) {
+            Intent intent = new Intent(mContext, SecondDetailActivity.class);
+            intent.putExtra("path", "/privacy");
+            intent.putExtra("title", "PRIVACY POLICY");
             intent.putExtra("menu_layout", R.menu.menu_blank);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             result.cancel();
