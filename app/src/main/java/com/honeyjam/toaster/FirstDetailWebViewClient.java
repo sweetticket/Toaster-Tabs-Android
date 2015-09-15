@@ -40,7 +40,7 @@ public class FirstDetailWebViewClient extends WebViewClient {
         try {
             ((FirstDetailActivity) mContext).routerGo();
         } catch (java.lang.ClassCastException e) {
-            Log.d("exception", "Not FirstDetailActivity");
+//            Log.d("exception", "Not FirstDetailActivity");
         }
     }
 }

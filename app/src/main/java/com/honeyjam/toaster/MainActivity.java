@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("Activity", "MainActivity onCreate");
+//        Log.d("Activity", "MainActivity onCreate");
 
         firstLoadComplete = false;
         oneTabLoadComplete = false;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
         if (prefs.getString("userId", "").toString() != null) {
             mUserId = prefs.getString("userId", "").toString();
-            Log.d("mUserId", mUserId);
+//            Log.d("mUserId", mUserId);
         }
 
         if (getIntent().hasExtra("restart")) {
@@ -177,34 +177,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Activity", "MainActivity onStart");
+//        Log.d("Activity", "MainActivity onStart");
         active = true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("Activity", "MainActivity onResume");
+//        Log.d("Activity", "MainActivity onResume");
         invalidateOptionsMenu();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("Activity", "MainActivity onPause");
+//        Log.d("Activity", "MainActivity onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("Activity", "MainActivity onStop");
+//        Log.d("Activity", "MainActivity onStop");
         active = false;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Activity", "MainActivity onDestroy");
+//        Log.d("Activity", "MainActivity onDestroy");
     }
 
     @Override
@@ -279,10 +279,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Check which request we're responding to
         if (requestCode == LOGIN_REQUIRED_REQUEST) {
-            Log.d("activityResult", "requestCode: LOGIN_REQUIRED_REQUEST");
+//            Log.d("activityResult", "requestCode: LOGIN_REQUIRED_REQUEST");
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                Log.d("activityResult", "resultCode: RESULT_OK");
+//                Log.d("activityResult", "resultCode: RESULT_OK");
                 boolean loginRequired = data.getExtras().getBoolean("login-required");
                 if (loginRequired) {
 //                    mPusher.disconnect();

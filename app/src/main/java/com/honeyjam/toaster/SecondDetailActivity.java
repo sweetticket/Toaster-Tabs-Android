@@ -30,7 +30,7 @@ public class SecondDetailActivity extends AppCompatActivity {
 
         mPath = "/blank";
 
-        Log.d("Activity", "SecondDetailActivity onCreate");
+//        Log.d("Activity", "SecondDetailActivity onCreate");
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -108,13 +108,13 @@ public class SecondDetailActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Activity", "SecondDetailActivity onStart");
+//        Log.d("Activity", "SecondDetailActivity onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Activity", "SecondDetailActivity onResume");
+//        Log.d("Activity", "SecondDetailActivity onResume");
         String title = getIntent().getStringExtra("title");
         mPath = getIntent().getStringExtra("path");
         mMenuLayout = getIntent().getIntExtra("menu_layout", R.menu.menu_blank);
@@ -124,13 +124,13 @@ public class SecondDetailActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("Activity", "SecondDetailActivity onPause");
+//        Log.d("Activity", "SecondDetailActivity onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("Activity", "SecondDetailActivity onStop");
+//        Log.d("Activity", "SecondDetailActivity onStop");
         if (mPath.contains("notifications")) {
             mWebView.loadUrl("javascript:Meteor.call(\"readAllNotifications\");");
         }
@@ -139,7 +139,7 @@ public class SecondDetailActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Activity", "SecondDetailActivity onDestroy");
+//        Log.d("Activity", "SecondDetailActivity onDestroy");
     }
 
     @Override

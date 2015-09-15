@@ -40,7 +40,7 @@ public class SecondDetailWebViewClient extends WebViewClient {
         try {
             ((SecondDetailActivity) mContext).routerGo();
         } catch (ClassCastException e) {
-            Log.d("exception", "Not SecondDetailActivity");
+//            Log.d("exception", "Not SecondDetailActivity");
         }
     }
 }

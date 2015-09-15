@@ -31,7 +31,7 @@ public class FirstDetailActivity extends AppCompatActivity {
 
         mPath = "/blank";
 
-        Log.d("Activity", "FirstDetailActivity onCreate");
+//        Log.d("Activity", "FirstDetailActivity onCreate");
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -109,13 +109,13 @@ public class FirstDetailActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Activity", "FirstDetailActivity onStart");
+//        Log.d("Activity", "FirstDetailActivity onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Activity", "FirstDetailActivity onResume");
+//        Log.d("Activity", "FirstDetailActivity onResume");
         String title = getIntent().getStringExtra("title");
         mPath = getIntent().getStringExtra("path");
         mMenuLayout = getIntent().getIntExtra("menu_layout", R.menu.menu_blank);
@@ -125,13 +125,13 @@ public class FirstDetailActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("Activity", "FirstDetailActivity onPause");
+//        Log.d("Activity", "FirstDetailActivity onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("Activity", "FirstDetailActivity onStop");
+//        Log.d("Activity", "FirstDetailActivity onStop");
         if (mPath.contains("notVerified")) {
             mWebView.loadUrl("javascript:Meteor.logout();Session.set(\"currentUserId\", undefined);");
         }
@@ -143,7 +143,7 @@ public class FirstDetailActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Activity", "FirstDetailActivity onDestroy");
+//        Log.d("Activity", "FirstDetailActivity onDestroy");
     }
 
     @Override
