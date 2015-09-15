@@ -98,7 +98,11 @@ public class MyChromeClient extends WebChromeClient {
         if (message.contains("start-signup")) {
             if (!isSigningIn) {
                 isSigningIn = true;
-                ((MainActivity) mContext).toSignUp();
+                try {
+                    ((MainActivity) mContext).toSignUp();
+                } catch (java.lang.ClassCastException e) {
+                    Log.d("exception", "Not MainActivity");
+                }
             }
         }
 
@@ -111,13 +115,17 @@ public class MyChromeClient extends WebChromeClient {
             try {
                 ((MainActivity) mContext).setBadgeCount(newUnread);
             } catch (java.lang.ClassCastException e) {
-                Log.d("catch", "class cast exception");
+                Log.d("exception", "Not MainActivity");
             }
         }
 
         if (message.contains("isSignedInVerified")) {
             MainActivity.menuAccessAllowed = true;
-            ((MainActivity) mContext).invalidateOptionsMenu();
+            try {
+                ((MainActivity) mContext).invalidateOptionsMenu();
+            } catch (java.lang.ClassCastException e) {
+                Log.d("exception", "Not MainActivity");
+            }
         }
 
         result.cancel();
