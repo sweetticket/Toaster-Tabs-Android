@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     Context mContext;
     TextView mBadge;
+    ImageView mSplash;
 
     private String mUserId;
 
@@ -64,17 +67,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        mSplash = (ImageView) findViewById(R.id.splash_screen);
 
         Window window = this.getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        int statusbar_splash_color = Color.rgb(255, 94, 58);
-//        window.setStatusBarColor(statusbar_splash_color);
 
         int statusbar_splash_color = Color.rgb(255, 94, 58);
-        window.setStatusBarColor(statusbar_splash_color);
+
+
+        setStatusBarColor(window, statusbar_splash_color);
+
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        mSplash.setVisibility(View.GONE);
+                    }
+                },
+                1000);
 
         SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
         if (prefs.getString("userId", "").toString() != null) {
@@ -85,14 +97,16 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().hasExtra("restart")) {
             menuAccessAllowed = true;
             if (getIntent().getBooleanExtra("restart", true)) {
-                findViewById(R.id.splash_screen).setVisibility(View.GONE);
+                if (mSplash.getVisibility() == View.VISIBLE) {
+                    mSplash.setVisibility(View.GONE);
+                }
                 statusbar_splash_color = Color.rgb(255, 70, 79);
-                this.getWindow().setStatusBarColor(statusbar_splash_color);
+                setStatusBarColor(this.getWindow(), statusbar_splash_color);
                 firstLoadComplete = true;
                 oneTabLoadComplete = true;
 
             } else {
-                findViewById(R.id.splash_screen).setVisibility(View.VISIBLE);
+                mSplash.setVisibility(View.VISIBLE);
             }
         }
 
@@ -319,9 +333,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (requestCode == RESTART) {
-            findViewById(R.id.splash_screen).setVisibility(View.GONE);
+            mSplash.setVisibility(View.GONE);
             int statusbar_color = Color.rgb(255, 70, 79);
-            this.getWindow().setStatusBarColor(statusbar_color);
+            setStatusBarColor(this.getWindow(), statusbar_color);
             firstLoadComplete = true;
             oneTabLoadComplete = true;
         }
@@ -338,24 +352,24 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(loginIntent, SIGNED_IN);
     }
 
-    public boolean checkIfLoaded() {
-        if (firstLoadComplete) {
-//            Log.d("checkIfLoaded", "already loaded");
-            return true;
-        } else if (oneTabLoadComplete) {
-//            Log.d("checkIfLoaded", "both tabs loaded");
-            firstLoadComplete = true;
-            //Hide Image
-            findViewById(R.id.splash_screen).setVisibility(View.GONE);
-            int statusbar_color = Color.rgb(255, 70, 79);
-            this.getWindow().setStatusBarColor(statusbar_color);
-            return true;
-        } else {
-//            Log.d("checkIfLoaded", "only one tab loaded");
-            oneTabLoadComplete = true;
-            return false;
-        }
-    }
+//    public boolean checkIfLoaded() {
+//        if (firstLoadComplete) {
+////            Log.d("checkIfLoaded", "already loaded");
+//            return true;
+//        } else if (oneTabLoadComplete) {
+////            Log.d("checkIfLoaded", "both tabs loaded");
+//            firstLoadComplete = true;
+//            //Hide Image
+//            mSplash.setVisibility(View.GONE);
+//            int statusbar_color = Color.rgb(255, 70, 79);
+//            setStatusBarColor(this.getWindow(), statusbar_color);
+//            return true;
+//        } else {
+////            Log.d("checkIfLoaded", "only one tab loaded");
+//            oneTabLoadComplete = true;
+//            return false;
+//        }
+//    }
 
     public void setBadgeCount(String numUnread) {
         badgeCount = Integer.parseInt(numUnread);
@@ -380,5 +394,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // do nothing
+    }
+
+    public static void setStatusBarColor(Window window, int statusBarColor) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // If both system bars are black, we can remove these from our layout,
+            // removing or shrinking the SurfaceFlinger overlay required for our views.
+
+
+            // By -->>>>> Window window = getWindow();
+
+            //or by this if call in Fragment
+            // -->>>>> Window window = getActivity().getWindow();
+
+
+            if (statusBarColor == Color.BLACK && window.getNavigationBarColor() == Color.BLACK) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            } else {
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            }
+            window.setStatusBarColor(statusBarColor);
+        }
     }
 }

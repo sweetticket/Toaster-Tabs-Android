@@ -26,7 +26,7 @@ public class Tab2 extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.tab_view,container,false);
-        this.mWebView = (WebView) v.findViewById(R.id.webview);
+        this.mWebView = (LiveWebView) v.findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
         settings.setSupportMultipleWindows(true);

@@ -42,7 +42,7 @@ public class SignUpTabActivity extends AppCompatActivity {
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         int statusbar_color = Color.rgb(255, 70, 79);
-        this.getWindow().setStatusBarColor(statusbar_color);
+        MainActivity.setStatusBarColor(this.getWindow(), statusbar_color);
 
 
         // Creating The Toolbar and setting it as the Toolbar for the activity

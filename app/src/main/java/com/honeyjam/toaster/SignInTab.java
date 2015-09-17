@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -26,7 +27,7 @@ public class SignInTab extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.tab_view, container, false);
-        this.mWebView = (WebView) v.findViewById(R.id.webview);
+        this.mWebView = (LiveWebView) v.findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
         settings.setSupportMultipleWindows(true);
@@ -64,24 +65,21 @@ public class SignInTab extends Fragment {
         mWebView.setWebChromeClient(chromeClient);
 
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-
-//        mWebView.addJavascriptInterface(new MyJSI(mContext), "myjsi");
-
-//        mWebView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//
-//            public void onFocusChange(View arg0, boolean hasFocus) {
-//
-//                if (!hasFocus) {
-//                    Log.d("hasFocus", "false");
-//                    mWebView.requestFocus(View.FOCUS_DOWN);
-//                    mWebView.setFocusable(true);
-//                }
-//
-//                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                imm.showSoftInput(mWebView, 0);
-//            }
-//        });
-
+        mWebView.requestFocus(View.FOCUS_DOWN);
+        mWebView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
+                        if (!v.hasFocus()) {
+                            v.requestFocus();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
         if (savedInstanceState==null) {
             mWebView.loadUrl(GlobalVariables.ROOT_URL + "/signIn");
         }

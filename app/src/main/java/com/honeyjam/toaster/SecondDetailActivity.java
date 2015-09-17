@@ -44,7 +44,7 @@ public class SecondDetailActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         // finally change the color
         int statusbar_color = Color.rgb(255, 70, 79);
-        window.setStatusBarColor(statusbar_color);
+        MainActivity.setStatusBarColor(window, statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
 
@@ -59,7 +59,7 @@ public class SecondDetailActivity extends AppCompatActivity {
         });
 
 
-        mWebView = (WebView) findViewById(R.id.webview);
+        mWebView = (LiveWebView) findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);

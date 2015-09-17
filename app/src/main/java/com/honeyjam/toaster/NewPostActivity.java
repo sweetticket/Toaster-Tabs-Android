@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -37,7 +38,7 @@ public class NewPostActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         // finally change the color
         int statusbar_color = Color.rgb(255, 70, 79);
-        window.setStatusBarColor(statusbar_color);
+        MainActivity.setStatusBarColor(window, statusbar_color);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         mToolbar.setTitle("NEW TOAST");
@@ -51,7 +52,7 @@ public class NewPostActivity extends AppCompatActivity {
         });
 
 
-        mWebView = (WebView) findViewById(R.id.webview);
+        mWebView = (LiveWebView) findViewById(R.id.webview);
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -87,6 +88,21 @@ public class NewPostActivity extends AppCompatActivity {
 //        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        mWebView.requestFocus(View.FOCUS_DOWN);
+        mWebView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
+                        if (!v.hasFocus()) {
+                            v.requestFocus();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
 
 //        if (savedInstanceState==null) {
         String postURL = GlobalVariables.ROOT_URL + "/newPost";
