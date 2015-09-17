@@ -88,21 +88,21 @@ public class NewPostActivity extends AppCompatActivity {
 //        chromeClient.setProgressBar((ProgressBar) findViewById(R.id.pB1));
         mWebView.setWebChromeClient(chromeClient);
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWebView.requestFocus(View.FOCUS_DOWN);
-        mWebView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_UP:
-                        if (!v.hasFocus()) {
-                            v.requestFocus();
-                        }
-                        break;
-                }
-                return false;
-            }
-        });
+//        mWebView.requestFocus(View.FOCUS_DOWN);
+//        mWebView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                    case MotionEvent.ACTION_UP:
+//                        if (!v.hasFocus()) {
+//                            v.requestFocus();
+//                        }
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
 
 //        if (savedInstanceState==null) {
         String postURL = GlobalVariables.ROOT_URL + "/newPost";

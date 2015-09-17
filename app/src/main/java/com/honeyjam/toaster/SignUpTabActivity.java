@@ -1,5 +1,6 @@
 package com.honeyjam.toaster;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -7,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 
 public class SignUpTabActivity extends AppCompatActivity {
@@ -31,6 +34,8 @@ public class SignUpTabActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Log.d("SignUpTabActivity", "signup activity onCreate");
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
@@ -43,6 +48,7 @@ public class SignUpTabActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         int statusbar_color = Color.rgb(255, 70, 79);
         MainActivity.setStatusBarColor(this.getWindow(), statusbar_color);
+//        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
@@ -135,5 +141,4 @@ public class SignUpTabActivity extends AppCompatActivity {
     public void onBackPressed() {
         // do nothing
     }
-
 }

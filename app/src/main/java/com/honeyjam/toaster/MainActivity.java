@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
         setStatusBarColor(window, statusbar_splash_color);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        mSplash.setVisibility(View.GONE);
-                    }
-                },
-                1000);
+//        new android.os.Handler().postDelayed(
+//                new Runnable() {
+//                    public void run() {
+//                        mSplash.setVisibility(View.GONE);
+//                    }
+//                },
+//                1000);
 
         SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
         if (prefs.getString("userId", "").toString() != null) {
@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().hasExtra("restart")) {
             menuAccessAllowed = true;
             if (getIntent().getBooleanExtra("restart", true)) {
-                if (mSplash.getVisibility() == View.VISIBLE) {
+//                if (mSplash.getVisibility() == View.VISIBLE) {
                     mSplash.setVisibility(View.GONE);
-                }
+//                }
                 statusbar_splash_color = Color.rgb(255, 70, 79);
                 setStatusBarColor(this.getWindow(), statusbar_splash_color);
                 firstLoadComplete = true;
@@ -348,28 +348,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toSignUp() {
+        Log.d("toSignUp", "going to signup");
         Intent loginIntent = new Intent(this, SignUpTabActivity.class);
-        startActivityForResult(loginIntent, SIGNED_IN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivityForResult(loginIntent, SIGNED_IN);
+        } else {
+            startActivity(loginIntent);
+        }
     }
 
-//    public boolean checkIfLoaded() {
-//        if (firstLoadComplete) {
-////            Log.d("checkIfLoaded", "already loaded");
-//            return true;
-//        } else if (oneTabLoadComplete) {
-////            Log.d("checkIfLoaded", "both tabs loaded");
-//            firstLoadComplete = true;
-//            //Hide Image
-//            mSplash.setVisibility(View.GONE);
-//            int statusbar_color = Color.rgb(255, 70, 79);
-//            setStatusBarColor(this.getWindow(), statusbar_color);
-//            return true;
-//        } else {
-////            Log.d("checkIfLoaded", "only one tab loaded");
-//            oneTabLoadComplete = true;
-//            return false;
-//        }
-//    }
+    public boolean checkIfLoaded() {
+        if (firstLoadComplete) {
+            Log.d("checkIfLoaded", "already loaded");
+            return true;
+        } else if (oneTabLoadComplete) {
+            Log.d("checkIfLoaded", "both tabs loaded");
+            firstLoadComplete = true;
+            //Hide Image
+            mSplash.setVisibility(View.GONE);
+            int statusbar_color = Color.rgb(255, 70, 79);
+            setStatusBarColor(this.getWindow(), statusbar_color);
+            return true;
+        } else {
+            Log.d("checkIfLoaded", "only one tab loaded");
+            oneTabLoadComplete = true;
+            return false;
+        }
+    }
 
     public void setBadgeCount(String numUnread) {
         badgeCount = Integer.parseInt(numUnread);
