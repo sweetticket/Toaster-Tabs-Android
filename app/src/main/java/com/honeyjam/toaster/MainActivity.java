@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -65,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        Window window = this.getWindow();
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        int statusbar_splash_color = Color.rgb(255, 94, 58);
-//        window.setStatusBarColor(statusbar_splash_color);
-
-        int statusbar_splash_color = Color.rgb(255, 94, 58);
-        window.setStatusBarColor(statusbar_splash_color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            // clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            // finally change the color
+            int statusbar_color = Color.rgb(255, 94, 58);
+            window.setStatusBarColor(statusbar_color);
+        }
 
         SharedPreferences prefs = getSharedPreferences("UserInfo", 0);
         if (prefs.getString("userId", "").toString() != null) {
@@ -86,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
             menuAccessAllowed = true;
             if (getIntent().getBooleanExtra("restart", true)) {
                 findViewById(R.id.splash_screen).setVisibility(View.GONE);
-                statusbar_splash_color = Color.rgb(255, 70, 79);
-                this.getWindow().setStatusBarColor(statusbar_splash_color);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    int statusbar_splash_color = Color.rgb(255, 70, 79);
+                    this.getWindow().setStatusBarColor(statusbar_splash_color);
+                }
                 firstLoadComplete = true;
                 oneTabLoadComplete = true;
 
@@ -320,8 +323,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == RESTART) {
             findViewById(R.id.splash_screen).setVisibility(View.GONE);
-            int statusbar_color = Color.rgb(255, 70, 79);
-            this.getWindow().setStatusBarColor(statusbar_color);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                int statusbar_color = Color.rgb(255, 70, 79);
+                this.getWindow().setStatusBarColor(statusbar_color);
+            }
             firstLoadComplete = true;
             oneTabLoadComplete = true;
         }
@@ -347,8 +352,10 @@ public class MainActivity extends AppCompatActivity {
             firstLoadComplete = true;
             //Hide Image
             findViewById(R.id.splash_screen).setVisibility(View.GONE);
-            int statusbar_color = Color.rgb(255, 70, 79);
-            this.getWindow().setStatusBarColor(statusbar_color);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                int statusbar_color = Color.rgb(255, 70, 79);
+                this.getWindow().setStatusBarColor(statusbar_color);
+            }
             return true;
         } else {
 //            Log.d("checkIfLoaded", "only one tab loaded");
