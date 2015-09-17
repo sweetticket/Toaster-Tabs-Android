@@ -45,14 +45,14 @@
 
     </LinearLayout>
 
-    <include
-        android:id="@+id/splash_screen"
-        layout="@layout/splash"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:gravity="center"
-        android:visibility="visible"
-        />
+    <!--<include-->
+        <!--android:id="@+id/splash_screen"-->
+        <!--layout="@layout/splash"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:visibility="visible"-->
+        <!--/>-->
 
 </FrameLayout>
 

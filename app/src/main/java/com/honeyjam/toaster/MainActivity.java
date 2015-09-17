@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     CharSequence Titles[]={"New","Hot"};
     int Numboftabs = 2;
-    static boolean firstLoadComplete;
-    static boolean oneTabLoadComplete;
     static boolean menuAccessAllowed;
     int badgeCount;
 
@@ -55,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        Log.d("Activity", "MainActivity onCreate");
 
-        firstLoadComplete = false;
-        oneTabLoadComplete = false;
         menuAccessAllowed = false;
         mContext = this;
         badgeCount = 0;
@@ -73,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
             // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             // finally change the color
-            int statusbar_color = Color.rgb(255, 94, 58);
+
+            //ORANGE
+//            int statusbar_color = Color.rgb(255, 94, 58);
+
+            int statusbar_color = Color.rgb(255, 70, 79);
             window.setStatusBarColor(statusbar_color);
         }
 
@@ -85,18 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("restart")) {
             menuAccessAllowed = true;
-            if (getIntent().getBooleanExtra("restart", true)) {
-                findViewById(R.id.splash_screen).setVisibility(View.GONE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    int statusbar_splash_color = Color.rgb(255, 70, 79);
-                    this.getWindow().setStatusBarColor(statusbar_splash_color);
-                }
-                firstLoadComplete = true;
-                oneTabLoadComplete = true;
-
-            } else {
-                findViewById(R.id.splash_screen).setVisibility(View.VISIBLE);
-            }
         }
 
 
@@ -322,13 +310,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (requestCode == RESTART) {
-            findViewById(R.id.splash_screen).setVisibility(View.GONE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int statusbar_color = Color.rgb(255, 70, 79);
-                this.getWindow().setStatusBarColor(statusbar_color);
-            }
-            firstLoadComplete = true;
-            oneTabLoadComplete = true;
+
         }
 
         if (requestCode == NEW_POST) {
@@ -340,29 +322,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void toSignUp() {
         Intent loginIntent = new Intent(this, SignUpTabActivity.class);
-        startActivityForResult(loginIntent, SIGNED_IN);
+//        startActivityForResult(loginIntent, SIGNED_IN);
+        finish();
+        startActivity(loginIntent);
     }
 
-    public boolean checkIfLoaded() {
-        if (firstLoadComplete) {
-//            Log.d("checkIfLoaded", "already loaded");
-            return true;
-        } else if (oneTabLoadComplete) {
-//            Log.d("checkIfLoaded", "both tabs loaded");
-            firstLoadComplete = true;
-            //Hide Image
-            findViewById(R.id.splash_screen).setVisibility(View.GONE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int statusbar_color = Color.rgb(255, 70, 79);
-                this.getWindow().setStatusBarColor(statusbar_color);
-            }
-            return true;
-        } else {
-//            Log.d("checkIfLoaded", "only one tab loaded");
-            oneTabLoadComplete = true;
-            return false;
-        }
-    }
 
     public void setBadgeCount(String numUnread) {
         badgeCount = Integer.parseInt(numUnread);

@@ -19,8 +19,6 @@ public class MyChromeClient extends WebChromeClient {
     Context mContext;
 //    ProgressBar mProgressBar;
     View mWheel;
-    static boolean isSigningIn = false;
-
 
 
     public void setContext(Context context) {
@@ -39,7 +37,7 @@ public class MyChromeClient extends WebChromeClient {
     @Override
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 
-//        Log.d("alert", "message: " + message);
+        Log.d("alert", "message: " + message);
 
         if (message.contains("/posts/")) {
 
@@ -87,23 +85,23 @@ public class MyChromeClient extends WebChromeClient {
                 mContext.startActivity(resultIntent);
 
             } else {
-                resultIntent = new Intent();
-                resultIntent.putExtra("userId", userId);
-                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+                SharedPreferences prefs = mContext.getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("userId", userId);
+                editor.apply();
                 ((Activity) mContext).finish();
+                resultIntent = new Intent(mContext, MainActivity.class);
+                mContext.startActivity(resultIntent);
             }
-            isSigningIn = false;
         }
 
         if (message.contains("start-signup")) {
-            if (!isSigningIn) {
-                isSigningIn = true;
-                try {
-                    ((MainActivity) mContext).toSignUp();
-                } catch (java.lang.ClassCastException e) {
-//                    Log.d("exception", "Not MainActivity");
-                }
+            try {
+                ((MainActivity) mContext).toSignUp();
+            } catch (java.lang.ClassCastException e) {
+//            Log.d("exception", "Not MainActivity");
             }
+
         }
 
         if (message.contains("loadingEnd")) {
