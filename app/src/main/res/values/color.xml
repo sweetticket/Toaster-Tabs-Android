@@ -4,6 +4,7 @@
     <color name="ColorPrimaryDark">#c31c13</color>
     <color name="tabsScrollColor">#8a140e</color>
     <color name="ColorLightGray">#ADADAD</color>
+    <color name="White">#FFFFFF</color>
     <!--<item name="android:statusBarColor">#8a140e</item>-->
 
     <!--<color name="textColorPrimary">#FFFFFF</color>-->

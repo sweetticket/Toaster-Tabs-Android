@@ -58,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
         badgeCount = 0;
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//        if (GlobalVariables.hasLaunched) {
+//            Log.d("hasLaunched", "has launched");
+//            setTheme(R.style.noSplashTheme);
+//        } else {
+//            Log.d("hasLaunched", "has not launched");
+//            GlobalVariables.hasLaunched = true;
+//        }
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);

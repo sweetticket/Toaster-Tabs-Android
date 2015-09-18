@@ -19,4 +19,6 @@ public class GlobalVariables {
         PARSE_OBJECT_ID = token;
     }
 
+    public static boolean hasLaunched = false;
+
 }
