@@ -12,12 +12,4 @@
         <item name="android:textSize">35sp</item>
     </style>
 
-    <style name="splashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/egg_splash_android_xhdpi</item>
-    </style>
-
-    <style name="noSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/White</item>
-    </style>
-
 </resources>

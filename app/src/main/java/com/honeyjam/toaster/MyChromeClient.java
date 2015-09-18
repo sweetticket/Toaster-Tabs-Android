@@ -37,7 +37,7 @@ public class MyChromeClient extends WebChromeClient {
     @Override
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 
-        Log.d("alert", "message: " + message);
+//        Log.d("alert", "message: " + message);
 
         if (message.contains("/posts/")) {
 
