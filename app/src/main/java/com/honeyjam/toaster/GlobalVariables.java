@@ -13,6 +13,9 @@ public class GlobalVariables {
 //    public static final String ROOT_URL = "http://192.168.1.107:3000";
     // HOWON'S HOUSE IP
 //    public static final String ROOT_URL = "http://192.168.0.106:3000";
+    // Cornell (Duffield)
+//    public static final String ROOT_URL = "http://10.148.12.239:3000";
+
     public static String PARSE_OBJECT_ID;
 
     public static void setParseObjectId(String token) {
